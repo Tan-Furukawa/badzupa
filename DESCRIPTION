@@ -1,0 +1,12 @@
+Package: badzupa
+Type: Package
+Title: What the package does (short line)
+Version: 1.0
+Date: 2020-07-17
+Author: Tan Furukawa
+Depends: R (>= 3.5.0)
+Imports: dbscan,MASS,mvtnorm
+Maintainer: Tan Furukawa <furukawatan@sgmail.com>
+Description: Package to draw density curve by LA-LGP. (Beta Version)
+License: GPL (>=3)
+RoxygenNote: 7.1.0
