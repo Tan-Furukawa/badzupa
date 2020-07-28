@@ -1,9 +1,9 @@
-\name{badzup}
-\alias{badzup}
+\name{badzupa}
+\alias{badzupa}
 \title{execute LA-LGP algorism}
 \description{All computation must use this fuction.}
 \usage{
-	badzup(d, xlim = c(NA,NA),initial = c(1,2,.1), m = 200, method = "normal", delta = 1/25, round = TRUE)
+	badzupa(d, xlim = c(NA,NA),initial = c(1,2,.1), m = 200, method = "normal", delta = 1/25, round = TRUE)
 }
 \arguments{
 	\item{d}{vector; one dimentional data}
@@ -26,7 +26,7 @@
 }
 \examples{
 	d <- rnorm(100, 50, 10)
-	a1 <- badzup(d)
+	a1 <- badzupa(d)
 	a2 <- bdpdf(a1)
 	bdplot(a2)
 }

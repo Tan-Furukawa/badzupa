@@ -1,9 +1,9 @@
-badzup <- function(
+badzupa <- function(
 		   d,
 		   xlim = c(NA,NA),
 		   initial = c(1,2,0.1),
 		   m = 200,
-		   method = "normal",
+		   method = "detrital",
 		   delta = 1/25,
 		   round = TRUE
 		   ){
@@ -25,9 +25,10 @@ badzup <- function(
 
 	if(round){
 		for(i in 1:length(d)){
-			d[i] <- rnorm(1, d[i], 1/2)
+		set.seed(i);d[i] <- rnorm(1, d[i], 1/2)
 		}
 	}
+	set.seed(NULL)
 	#x axis
 	x <- seq(xlim[1], xlim[2], length = m)
 	# normalized x axis
@@ -64,11 +65,10 @@ badzup <- function(
 	#function compute likelihood
 	#---------------------------------------------------------------------------
 	cat("computing")
-	compute_likelihood <- function(v, f = f0) {
-
-		cat(".")
+	compute_likelihood <- function(v, f = f0, print. = T) {
+	  if(print. == T) cat(".")
 		K <- make_kernel(v,nx) 
-		result <-  compute_f_estimate(K, f = f0, y = y) 
+		result <-  compute_f_estimate(K, f0 = f0, y = y) 
 		f <- matrix(result$f)
 		invCf <- result$invCf
 		A <- result$A
@@ -79,7 +79,14 @@ badzup <- function(
 
 		loglik2 <- (t(y) %*% f)[1,1] - n * logsumexp
 		loglik3 <- -1/2 * log(det(A))
+
+		if(method == "detrital") {
+
+		  loglik4 <- -1/(2 * 2^2) * (log(v[3]))^2
+		  loglik3 <- loglik3 + loglik4
+		  }
 		loglik <- loglik1 + loglik2 + loglik3
+
 		return(-loglik)
 
 	} 
@@ -87,18 +94,25 @@ badzup <- function(
 
 	hyp <- optim(initial, compute_likelihood)$par
 
-	cat("\nhyp(sigma,rho) = ")
+	cat("\nhyp(sigma,rho) =")
 	cat(abs(hyp))
 	cat("\n")
 
 	K <- make_kernel(hyp, nx)
-	f_hat <- compute_f_estimate(K, f = f0, y = y)$f
-	likelihood <- -compute_likelihood(hyp)
+	f_hat <- compute_f_estimate(K, f0 = f0, y = y)$f
+	likelihood <- -compute_likelihood(hyp, print. = F)
 
 	ans <- list(hyp = hyp, x = x, f_hat = f_hat, y = y, likelihood = likelihood)
+	class(ans) <- "badzupa"
 	return(ans)
 }
 
+#t <- make_distribution(K, f_hat, y, 10)
+#t <- mvtnorm::rmvnorm(10, f_hat, K)
+#plot(x,t[1,], type = "l")
+#for(i in 1:10){
+#  lines(x,t[i,], type = "l")
+#}
 
 
 #sample
@@ -106,7 +120,7 @@ badzup <- function(
 #sd <- 50
 #m <- 200
 #d <- rnorm(50, mu, sd)
-#ans <- badzup(d, method = "normal")
+#ans <- badzupa(d, method = "normal")
 #f <- ans$f_hat
 #x <- ans$x
 #xd <- seq(mu - 3 * sd, mu + 3 * sd, length = m)

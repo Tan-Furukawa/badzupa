@@ -21,7 +21,7 @@ Riihimaki, J., and Vehtari, A. (2014). Laplace approximation for logistic Gaussi
 
 \examples{
 d <- rnorm(100, 50, 10)
-a1 <- badzup(d)
+a1 <- badzupa(d)
 a2 <- bdpdf(a1)
 bdplot(a2)
 

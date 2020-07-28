@@ -1,4 +1,4 @@
-bdpdf <- function(res, CI = 0.95){
+bdpdf <- function(res, ci = 0.95){
 
 	steps <- 1000
 	hyp <- res$hyp
@@ -24,10 +24,10 @@ bdpdf <- function(res, CI = 0.95){
 		}
 	}
 
-	Q <- CI
+	Q <- ci
 	Q_ <- 1 - Q
 
-	#p_CI is Q CI
+	#p_CI is Q ci
 	p_CI <- matrix(ncol = m, nrow = 2, 0)
 	for(i in 1:m){
 		p_CI[1,i] <- as.numeric(quantile(p[,i],Q))
@@ -78,7 +78,7 @@ bdpdf <- function(res, CI = 0.95){
 # d <- rnorm(40, 50, 10)
 #d <- LLfreq::Osayama
 #
-#res <- badzup(d, z = 10, initial = c(1,1,1), delta = 1/25)
+#res <- badzupa(d, z = 10, initial = c(1,1,1), delta = 1/25)
 #
 #print(res$likelihood)
 #ans <- confident_interval(res, z = 10)

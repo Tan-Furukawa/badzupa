@@ -1,9 +1,14 @@
-   bdlarge <- function(
+ bdlarge <- function(
 		    d,
-		    lim = 100,
+		    detection = "peak",
+		    ci = 0.95,
+		    eps = 0.03,
+		    minPts = 10,
+		    xlim = c(NA,NA),
 		    overlap = 0.3,
-		    xlim = c(NA,NA)
-   		    ){
+		    lim = 100
+   		  ){
+
 	# 	K <- 1
 	# 	lim <- 500
 		    
@@ -11,22 +16,23 @@
 	dens <- density(d, bw = "SJ")
 	densx <- dens$x
 	densy <- dens$y
-
-
-	b_peaks <- find_peaks(-densy)
-	b_peaks$y <- -b_peaks$y
-
+# 	plot(densx,densy, type = "l")
+# 	abline(v = threshold, col = "red")
+	
+	if(detection == "valley") b_peaks <- find_peaks(densy, detection = "peak")
+	if(detection == "peak") b_peaks <- find_peaks(densy, detection = "valley")
+       	b_peaks$y <- -b_peaks$y
 	
 # 	 	t_peaks <- find_peaks(densy)
 # 	 	t_peaks$x <- t_peaks$x / 10 * (max(densx) - min(densx)) + min(densx)
- 		b_peaks$x <- b_peaks$x / 10 * (max(densx) - min(densx)) + min(densx)
+ 	b_peaks$x <- b_peaks$x / 10 * (max(densx) - min(densx)) + min(densx)
 # 	b_peaks$x <- b_peaks$x / 10 * (max(densx) - min(densx)) + min(densx)
 	threshold <- b_peaks$x
 	threshold <- c(min(d), threshold, max(d))
 
 	K <- length(threshold) - 1
 # 	 	points(t_peaks)
-	 	points(b_peaks)
+#	 	points(b_peaks)
 
 
 
@@ -46,6 +52,8 @@
 		a <- d[threshold[i] <= d & d <= threshold[i + 1]]
 		div_d <- c(div_d, list(a))
 	}
+	
+	
 
 
 
@@ -65,6 +73,7 @@
 		}
 		div_d <- div_d[-(i - 1)]
 	}
+	
 
 
 	K <- length(div_d)
@@ -96,6 +105,7 @@
 
 
 	plot(x = NA, y = NA, xlim = c(min(d), max(d)), ylim = c(0,K))
+	#plot(densx, densy, type = "l")
 	for(i in 1:K){
 		points(div_d[[i]], numeric(length(div_d[[i]])) + i)
 	}
@@ -105,7 +115,7 @@
 	peak <- list()
 	dd <- list()
 
-	dx <-matrix(0, ncol = m, nrow = K) 
+	dx <- matrix(0, ncol = m, nrow = K) 
 	p_mean <-matrix(0, ncol = m, nrow = K) 
 	p_CIup <-matrix(0, ncol = m, nrow = K) 
 	p_CIlow <-matrix(0, ncol = m, nrow = K) 
@@ -116,27 +126,29 @@
 	cluster_sd <- data.frame(id = c(), x = c(), y = c(), xsdm = c(), xsdp = c(), ysdm = c(), ysdp = c(), probability = c())
 
 	for(i in 1:K){
+	  cat(i,"/",K,"\n")
 
 		if(i == 1 & !is.na(xlim[1])){
-			dd <- badzup(div_d[[i]], xlim = c(xlim[1], NA),  m = 200,  delta = 0, initial = initial)
+			dd <- badzupa(div_d[[i]], xlim = c(xlim[1], NA),  m = 200,  delta = 0, initial = initial)
 		} else if(i == K & !is.na(xlim[2])) {
-			dd <- badzup(div_d[[i]], xlim = c(NA, xlim[2]),  m = 200,  delta = 0, initial = initial)
+			dd <- badzupa(div_d[[i]], xlim = c(NA, xlim[2]),  m = 200,  delta = 0, initial = initial)
 		} else {
-			dd <- badzup(div_d[[i]], m = 200,  delta = 0, initial = initial)
+			dd <- badzupa(div_d[[i]], m = 200,  delta = 0, initial = initial)
 		}
 
 
 		dx[i,] <- dd$x
-		conf <-bdpdf(dd)
-		pe <- bdpeaks(dd, minPts = 10, eps = 0.05)
+		conf <-bdpdf(dd, ci)
+
+		pe <- bdpeaks(dd, detection = detection, minPts = minPts, eps = eps)
 		cluster_sd <- rbind(cluster_sd, data.frame(id = numeric(length(pe$cluster_min_xsd)) + i,
-							   x = pe$peak$x,
-							   y = pe$peak$y,
-							   xsdm = pe$cluster_min_xsd,
-							   xsdp = pe$cluster_max_xsd,
-							   ysdm = pe$cluster_min_ysd,
-							   ysdp = pe$cluster_max_ysd,
-							   probability = pe$probability))
+                              							   x = pe$peak$x,
+                              							   y = pe$peak$y,
+                              							   xsdm = pe$cluster_min_xsd,
+                              							   xsdp = pe$cluster_max_xsd,
+                              							   ysdm = pe$cluster_min_ysd,
+                              							   ysdp = pe$cluster_max_ysd,
+                              							   probability = pe$probability))
 
 		# 	peak <- bdpeaks(dd)
 		# 	peaks <- rbind(peaks)
@@ -144,12 +156,15 @@
 		p_CIup[i,] <- conf$p_CI[1,]
 		p_CIlow[i,] <- conf$p_CI[2,]
 
-		plot(dx[i,],  conf$p_mean, type = "l")
-		lines(dx[i,], conf$p_CI[1,], type = "l")
-		lines(dx[i,], conf$p_CI[2,], type = "l")
-		rug(div_d[[i]])
+#		plot(dx[i,],  conf$p_mean, type = "l")
+#		lines(dx[i,], conf$p_CI[1,], type = "l")
+#		lines(dx[i,], conf$p_CI[2,], type = "l")
+#		rug(div_d[[i]])
 	}
-# 	stop()
+
+
+#	rug(franciscan)
+#	abl#ine(v = threshold)
 
 
 
@@ -165,6 +180,12 @@
 		p_CIlow[i,] <- p_CIlow[i,] * a[i]/sum(a)
 	}
 
+
+#	plot(x = NA, y = NA, ylim =c(0,0.006), xlim = c(0,2500))
+#	for (i in 1:3){
+#	  lines(dx[i,], p_mean[i,])
+#	}
+	
 	# 	plot(x = NA, y = NA, xlim = c(min(d), max(d)), ylim = c(0,10))
 	# 	for(i in 1:l) {
 	# 		lines(dx[i,], numeric(length(dx[i,])) + i)
@@ -192,11 +213,6 @@
 
 	l <- length(dx[,1])
 
-	# 	stop()
-	#   	plot(x = NA, y = NA, ylim =c(0,0.01), xlim = c(0,00))
-	#   	for (i in 1:l){
-	#   		lines(dx[i,], p_mean[i,])
-	#   	}
 
 
 	dx[1,] <- cutter(dx[1,], srt = F)
@@ -320,7 +336,7 @@
 	#peaks_estimation
 	#------------------------------------------------------------
 
-	peaks <- find_peaks(p_mean)
+	peaks <- find_peaks(p_mean, detection = detection)
 	peaks$x <- (max(x) - min(x)) / 10 * peaks$x + min(x)
 
 	closest <- numeric(length(cluster_sd$x))
@@ -332,8 +348,8 @@
 	}
 
 
-# 	  	stop()
-	cluster_sd <- cluster_sd[closest != 0,][ order(closest[closest != 0]),]
+#  	  	stop()
+	cluster_sd <- cluster_sd[closest != 0,][order(closest[closest != 0]),]
 
 	cluster_sd$ysdm <- peaks$y / (cluster_sd$y) * cluster_sd$ysdm
 	cluster_sd$ysdp <- peaks$y / (cluster_sd$y) * cluster_sd$ysdp
@@ -347,7 +363,7 @@
 	lines(x, p_CIlow, type = "l")
 
 	points(cluster_sd$x,cluster_sd$y)
-	abline(v = threshold)
+	#abline(v = threshold)
 
 	segments(x0 = cluster_sd$x,
 		 y0 = cluster_sd$ysdm,
@@ -369,7 +385,7 @@
 	class(ans) <- "large"
 
 	return(ans)
- }
-
+}
+#bdplot(ans)
 
 

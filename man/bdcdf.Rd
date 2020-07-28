@@ -3,11 +3,12 @@
 \title{compute confident interval of cdf}
 \description{compute confident interval of cdf}
 \usage{
-	bdcdf(res, age = NA)
+	bdcdf(res, age = NA, ci = .95)
 }
 \arguments{
-	\item{res}{the result of function badzup()}
+	\item{res}{the result of function badzupa()}
 	\item{age}{the age baseline}
+	\item{ci}{confident interval}
 }
 \details{
 	This function is only efficient to compute confident interval of CDF from badzupa().
@@ -20,7 +21,7 @@
 }
 \examples{
 	d <- rnorm(100, 50, 10)
-	a1 <- badzup(d)
+	a1 <- badzupa(d)
 	a2 <- bdcdf(a1)
 	bdplot(a2)
 }

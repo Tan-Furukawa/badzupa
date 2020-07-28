@@ -3,14 +3,18 @@
 \title{compute confident interval of pdf especially large data set}
 \description{compute confident interval of pdf especially large data set}
 \usage{
-bdlarge(d, lim = 100, overlap = 0.3, xlim = c(NA,NA))
+bdlarge(d, detection = "peaks" ci = 0.95, eps = 0.03, minPts = 10, xlim = c(NA,NA), overlap = 0.3, lim = 300)
 
 }
 \arguments{
 	\item{d}{vector; one dimentional data}
-	\item{lim}{aaa}
-	\item{overlap}{aaa}
+	\item{detection}{"peak" of "valley"}
+	\item{ci}{aaa}
+	\item{eps}{aaa}
+	\item{minPts}{aaa}
 	\item{xlim}{aaa}
+	\item{overlap}{aaa}
+	\item{lim}{aaa}
 }
 \details{
 	This function is only efficient to compute confident interval of PDF especially large number,

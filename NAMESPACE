@@ -8,9 +8,10 @@ S3method(bdplot,bdpdf)
 S3method(bdplot,bdcdf)
 S3method(bdplot,large)
 S3method(bdplot,bdpeaks)
+S3method(bdplot,badzupa)
 
 export(
-  badzup,
+  badzupa,
   bdpdf,
   bdcdf,
   bdlarge,
@@ -19,5 +20,6 @@ export(
   bdplot.bdcdf,
   bdplot.bdpdf,
   bdplot.large,
-  bdplot.bdpeaks
+  bdplot.bdpeaks,
+  bdplot.badzupa
 )

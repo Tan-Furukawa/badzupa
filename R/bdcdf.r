@@ -1,4 +1,4 @@
-bdcdf <- function(res, age = NA){
+bdcdf <- function(res, age = NA, ci = .95){
 	x <- res$x
 
 	if(is.na(age)) age <- min(x)
@@ -42,10 +42,10 @@ bdcdf <- function(res, age = NA){
 	cqua <- matrix(ncol = lh, nrow = 2, 0)
 
 	for(i in 1:lh){
-		cqua[1,i] <- as.numeric(quantile(cpy[,i],0.025))
+		cqua[1,i] <- as.numeric(quantile(cpy[,i], (1 - ci) / 2))
 	}
 	for(i in 1:lh){
-		cqua[2,i] <- as.numeric(quantile(cpy[,i],0.975))
+		cqua[2,i] <- as.numeric(quantile(cpy[,i], (1 + ci) / 2))
 	}
 
 	ans <- list(x = x,

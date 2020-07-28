@@ -1,9 +1,8 @@
  bdpeaks <- function(
 			     res,
-			     detection = "top",
+			     detection = "peak",
 			     eps = 0.03,
-			     minPts = 10,
-			     limmit = 0.05
+			     minPts = 10
   			     ){
 
 	steps = 1000L
@@ -15,11 +14,10 @@
 	p_mean <- softmax(f0)
 
 	nx <- seq(0, 10, length = m)
-	if(detection == "top") peak <- find_peaks(p_mean)
-	if(detection == "bottom") peak <- find_peaks(p_mean, detection = "bottom")
+	if(detection == "peak") peak <- find_peaks(p_mean)
+	if(detection == "valley") peak <- find_peaks(p_mean, detection = "valley")
 
 	if(sum(is.na(peak))){
-	       	warning("no ",detection," in the distribution")
 	       ans <- list(
 			   probability = NA,
 			   peak = peak,
@@ -55,9 +53,8 @@
 	id <- c()
 
 	for(i in 1:steps){
-		
-		if(detection == "top") fp <- find_peaks(p[i,])
-		if(detection == "bottom") fp <- find_peaks(p[i,], detection = "bottom")
+		if(detection == "peak") fp <- find_peaks(p[i,])
+		if(detection == "valley") fp <- find_peaks(p[i,], detection = "valley")
 
 		fp_x <- fp$x
 		fp_y <- fp$y
@@ -260,5 +257,5 @@
 
 #  d <- LLfreq::Osayama
 #  d <- rnorm(200, 50, 50)
-#  res <- badzup(d, initial = c(1,0.1,1))
+#  res <- badzupa(d, initial = c(1,0.1,1))
 #  a <- bdpeaks(res, eps = 0.01)$probability

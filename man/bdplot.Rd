@@ -4,6 +4,7 @@
 \alias{bdplot.bdpeaks}
 \alias{bdplot.bdpdf}
 \alias{bdplot.bdcdf}
+\alias{bdplot.badzupa}
 \title{compute confident interval of pdf}
 \description{compute confident interval of pdf}
 \usage{
@@ -19,7 +20,7 @@
 
 \examples{
 	d <- rnorm(100, 50, 10)
-	a1 <- badzup(d)
+	a1 <- badzupa(d)
 	a2 <- bdpdf(a1)
 	bdplot(a2)
 }

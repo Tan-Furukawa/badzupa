@@ -3,14 +3,13 @@
 \title{compute reliability of peaks}
 \description{compute reliability of peaks; the error of top and its certainty}
 \usage{
-	bdpeaks(res, detection = "top", eps = 0.03, minPts = 10, limmit = 0.05)
+	bdpeaks(res, detection = "peak", eps = 0.03, minPts = 10)
 }
 \arguments{
 	\item{res}{the result of function llfreq()}
-	\item{detection}{top or vally, which you want to detect}
+	\item{detection}{peak or vally, which you want to detect}
 	\item{eps}{eps parameter of DBSCAN}
 	\item{minPts}{minPts parameter of DBSCAN}
-	\item{limmit}{aaa}
 }
 \details{
 	This function is only efficient to compute confident interval of PDF from llfreq().
@@ -27,7 +26,7 @@
 }
 \examples{
 	d <- rnorm(100, 50, 10)
-	a1 <- badzup(d)
+	a1 <- badzupa(d)
 	a2 <- bdpeaks(a1)
 	bdplot(a2)
 }

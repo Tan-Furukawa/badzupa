@@ -1,7 +1,7 @@
 find_peaks <- function(
 		       vec,
 		       limmit = 0.01,
-		       detection = "top"
+		       detection = "peak"
 		       ){
 
 	m <- length(vec)
@@ -71,7 +71,7 @@ find_peaks <- function(
 	diff_merge_no_noise <- merge_noise(diff_merge, lim)
 	num_diff <- diff_merge_no_noise$num
 
-	if(detection == "top"){
+	if(detection == "peak"){
 		num <- diff_merge_no_noise[diff_merge_no_noise$vec > 0, ]$num
 	} else {
 		num <- diff_merge_no_noise[diff_merge_no_noise$vec < 0, ]$num

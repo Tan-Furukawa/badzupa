@@ -1,4 +1,14 @@
 make_kernel <- function(hyp, x){
+	if(hyp[1] > 50 | hyp[2] > 50){
+		if(hyp[1] < hyp[2]){
+			hyp[1] <- hyp[1] / hyp[2] * 50
+			hyp[2] <- 50
+		} else {
+			hyp[2] <- hyp[2] / hyp[1] * 50
+			hyp[1] <- 50
+		}
+	}
+  
 	m <- length(x)
 	sig <- hyp[1]
 	rho <- hyp[2]
@@ -89,7 +99,9 @@ make_distribution <- function(K, f0, y, steps){
 	Q <- diag(m) + W %*% C
 	L <- C %*% solve(Q, tol = 0)
 
-	f <- ignore_error_rmvnor(steps, fnew, L)
+	set.seed(12345); f <- ignore_error_rmvnor(steps, fnew, L)
+	set.seed(12345); f <- mvtnorm::rmvnorm(steps, fnew, L)
+	set.seed(NULL)
 # 	f <- ignore_error_rmvnor(1, fnew, L)
 # 	plot(x,f,type ="l")
 	return(f)
