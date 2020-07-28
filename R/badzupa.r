@@ -4,7 +4,7 @@ badzupa <- function(
 		   xlim = c(NA,NA),
 		   initial = c(1,2,0.1),
 		   m = 200,
-		   method = "detrital",
+		   method = "normal",
 		   delta = 1/25,
 		   round = TRUE
 		   ){
@@ -82,7 +82,7 @@ badzupa <- function(
 		loglik3 <- -1/2 * log(det(A))
 
 		if(method == "detrital") {
-
+		  if(v[3] < 0) v[3] <- 10^(-10)
 		  loglik4 <- -1/(2 * 2^2) * (log(v[3]))^2
 		  loglik3 <- loglik3 + loglik4
 		  }
