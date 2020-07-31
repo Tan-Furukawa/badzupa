@@ -3,30 +3,38 @@
 \title{execute LA-LGP algorism}
 \description{All computation must use this fuction.}
 \usage{
-	badzupa(d, xlim = c(NA,NA),initial = c(1,2,.1), m = 200, method = "normal", delta = 1/25, round = TRUE)
+	badzupa(d,  method = "auto", xlim = c(NA,NA), initial = c(1,2,0.1), m = 200, delta = 1/25, round = TRUE)
 }
 \arguments{
 	\item{d}{vector; one dimentional data}
-	\item{xlim}{vector having two elements; the range of computation area. defalut to c(NA,NA), automatically determie the range}
-	\item{initial}{initial value of newthon method}
-	\item{m}{discrixed rate; default to 200.}
-	\item{method}{normal or detrital; see Furukawa et al., (2020)}
-	\item{delta}{aaaa}
-	\item{round}{aaaa}
+	\item{method}{"auto", "normal" or "detrital"; "auto" method is automatically change "normal" or "detrital". "normal" method is computed by two parameters: sigma, rho. "detrital" mehtod is computed by three parameters: sigma, rho0, eta. If \code{max(d) - min(d)} is more than 1000 (Ma) then "detrital" method is recommended.
+	see Furukawa et al., (2020)}
+	\item{xlim}{vector having two elements; The range of computation area. defalut to \code{c(NA,NA)}, automatically determie the range}
+	\item{initial}{vector having three elements; initial value of newthon method c(sigma, rho, eta). Even if the initial value is determined arbitrarily, the result may be same.}
+	\item{m}{number; Number of divisions on the x-axis. default to 200.}
+	\item{delta}{number; The lneght of the buffer zone on both sides of the age axis. This parameter is only used when \code{xlim} have \code{NA} element. In this case \code{xlim} will be \code{c(min(d) - delta * (max(d) - min(d)), max(d) + delta * (max(d) - min(d)))}}
+	\item{round}{logical; If \code{TRUE}, when \code{d} contains an integer value, badzupa naturally disperse that integer value.}
 }
+
 \details{
-	aaa
+	badzupa() is the most important body function of BAD-ZUPA. The appropriate hyperparameters are calculated by this function.
 }
+
 \value{
-	\item{hyp}{hyperparameters; rho, sigma (and eta)}
+badzupa return the list having five element:
+	\item{hyp}{best hyperparameters; rho, sigma (and eta)}
 	\item{x}{x axis}
 	\item{f_hat}{estimated value of spectrum. exp(f_hat) is proportional to the spectum}
-	\item{y}{data vector}
+	\item{y}{data vector.}
 	\item{likelihood}{the quality of evaluatiton}
 }
 \examples{
-	d <- rnorm(100, 50, 10)
-	a1 <- badzupa(d)
-	a2 <- bdpdf(a1)
-	bdplot(a2)
+data(franciscan100)
+# normal method
+bd_result <- badzupa(franciscan100, method = "normal")
+bdplot(bd_result)
+
+# detrital method
+bd_result <- badzupa(franciscan100, method = "detrital")
+bdplot(bd_result)
 }

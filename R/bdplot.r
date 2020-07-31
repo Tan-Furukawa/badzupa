@@ -1,6 +1,6 @@
 bdplot <- function(res, ...){UseMethod("bdplot", res)}
 
-bdplot.large <- function(res, ylim = c(NA,NA), type = "ci", ...){
+bdplot.large <- function(res, ylim = c(NA,NA), type = "pdfci", ...){
   if(type == "pdfci"){
     col= "#0092CD"
     x <- res$x 

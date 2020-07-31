@@ -1,15 +1,16 @@
 
 badzupa <- function(
 		   d,
+		   method = "auto",
 		   xlim = c(NA,NA),
 		   initial = c(1,2,0.1),
 		   m = 200,
-		   method = "normal",
 		   delta = 1/25,
 		   round = TRUE
 		   ){
 	#variables
 	#--------------------------------------------------------------------------
+  if(method == "auto") if(max(d) - min(d) > 1000) method <- "detrital" else method <- "normal"
 
 	if(length(d) < 1) stop("length of d must be more than 2")
 	n <- length(d)

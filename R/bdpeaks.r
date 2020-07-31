@@ -2,7 +2,8 @@
 			     res,
 			     detection = "peak",
 			     eps = 0.03,
-			     minPts = 10
+			     minPts = 10,
+			     diag = FALSE
   			     ){
 
 	steps = 1000L
@@ -219,19 +220,21 @@
 #   	       points(peak$x, peak$y * dely)
 
 
-
-  	       plot(peaks$x, peaks$y, col = col[which_peak + 1], pch = 19)
-   	       points(peak)
-# 	       stop()
-
- 	       segments(x0 = cluster_min_xsd,
- 			y0 = peak$y,
- 			x1 = cluster_max_xsd,
- 			y1 = peak$y)
- 	       segments(x0 = peak$x,
- 			y0 = cluster_min_ysd,
- 			x1 = peak$x,
- 			y1 = cluster_max_ysd)
+	       if(diag){
+	         plot(peaks$x, peaks$y, col = col[which_peak + 1], pch = 19)
+	         points(peak)
+	         # 	       stop()
+	         
+	         segments(x0 = cluster_min_xsd,
+	                  y0 = peak$y,
+	                  x1 = cluster_max_xsd,
+	                  y1 = peak$y)
+	         segments(x0 = peak$x,
+	                  y0 = cluster_min_ysd,
+	                  x1 = peak$x,
+	                  y1 = cluster_max_ysd)
+	       }
+  	       
 
 	       probability <- cluster_size / 1000
 	       probability[probability > 1] <- 1
