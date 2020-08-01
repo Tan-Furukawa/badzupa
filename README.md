@@ -13,7 +13,7 @@ install_github("Tan-Furukawa/badzupa")
 
 ## Examples
 
-The most basic function in badzupa `badzupa()` is nessesary for all coputation. The argument is one dimentional data. This function is developed for evaluating detrital zircon age distribution, but the argument applied for all continious data.
+The function in badzupa `badzupa()` or `bdlarge()` is nessesary for all coputation. The argument is one dimentional data. This function is developed for evaluating detrital zircon age distribution, but the argument applied for all continious data.
 
 * `bdplot()` is used for plotting PDF and CDF:
  
@@ -21,6 +21,12 @@ The most basic function in badzupa `badzupa()` is nessesary for all coputation. 
 library(badzupa)
 data(franciscan100)
 bd_result <- badzupa(franciscan100)
+bdplot(bd_result)
+
+# when data size is very large, 
+library(badzupa)
+data(franciscan)
+bd_result <- bdlarge(franciscan)
 bdplot(bd_result)
 ```
 
