@@ -3,7 +3,7 @@
 \title{compute when large data set}
 \description{compute confident interval estimation, peaks estimation when data set is very large (N > 1000)}
 \usage{
-bdlarge(d, detection = "peak", ci = 0.95, eps = 0.03, minPts = 10, xlim = c(NA,NA), overlap = 0.2, lim = 100, diag = FALSE)
+bdlarge(d, detection = "peak", ci = 0.95, eps = 0.03, minPts = 10, xlim = c(NA,NA), overlap = 0.2, lim = 100, initial = c(0.1,0.1), diag = FALSE)
 
 }
 \arguments{
@@ -15,6 +15,7 @@ bdlarge(d, detection = "peak", ci = 0.95, eps = 0.03, minPts = 10, xlim = c(NA,N
 	\item{xlim}{vector having two elements; The range of computation area. defalut to \code{c(NA,NA)}, automatically determie the range}
 	\item{overlap}{number; In \code{bdlarge()} computaion, data set is divided into several sub-data sets. When computation, some of the sample in sub-data sets are overlapped; where 1 means all data overlap and 0 means all data do not overlap. default to 0.3}
 	\item{lim}{integer; In \code{bdlarge()} computaion, data set is divided into several sub-data sets. lim is the smallest size of sub-datasets. default to 100.}
+	\item{initial}{vector having two elements; initial value of newthon method c(sigma, rho). Even if the initial value is determined arbitrarily, the result may be same.}
 	\item{diag}{logical; checking the computation status.}
 }
 \details{

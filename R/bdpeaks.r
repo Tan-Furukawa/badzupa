@@ -6,6 +6,11 @@
 			     diag = FALSE
   			     ){
 
+	if(!(detection == "peak" | detection == "valley")) stop("detection is peak or valley")
+	if(!is.numeric(eps)) stop("eps must be numeric")
+	if(!is.numeric(minPts)) stop("minPts must be numeric")
+	if(!is.logical(diag)) stop("diag must be logical")
+
 	steps = 1000L
 	x <- res$x
 	hyp <- res$hyp

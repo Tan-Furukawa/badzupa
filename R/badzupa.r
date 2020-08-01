@@ -1,21 +1,36 @@
 
 badzupa <- function(
-		   d,
-		   method = "auto",
-		   xlim = c(NA,NA),
-		   initial = c(1,2,0.1),
-		   m = 200,
-		   delta = 1/25,
-		   round = TRUE
-		   ){
-	#variables
+		    d,
+		    method = "auto",
+		    xlim = c(NA,NA),
+		    initial = c(0.1,0.1,0.1),
+		    m = 200,
+		    delta = 1/25,
+		    round = TRUE
+		    ){
+	#error!
 	#--------------------------------------------------------------------------
-  if(method == "auto") if(max(d) - min(d) > 1000) method <- "detrital" else method <- "normal"
+	if(!is.numeric(d)) stop("d must be numeric vector")
+	if(is.matrix(d) | is.data.frame(d)) stop("d must be vector")
+	if(length(d) <= 1) stop("length of d must be larger than 2")
+	if(!(method == "normal" | method == "auto" | method == "detrital")) stop("method is normal, auto or detrital")
+	if(length(xlim) != 2) stop("legnth of xlim must be 2")
+	if(!is.na(xlim[1]) & !is.numeric(xlim[1])) stop("xlim[1] must be numeric or NA")
+	if(!is.na(xlim[2]) & !is.numeric(xlim[2])) stop("xlim[2] must be numeric or NA")
+	if(!(length(initial) == 2 | length(initial) == 3)) stop("length of initial is 2 when method is detrital and 3 when method is normal")
+	if(!is.numeric(initial[1])) stop("initial[1] must be numeric")
+	if(!is.numeric(initial[2])) stop("initial[2] must be numeric")
+	if(!is.numeric(initial[3])) stop("initial[3] must be numeric")
+	if(!is.numeric(m)) stop("m must be integer")
+	if(!is.numeric(delta)) stop("delta must be numeric")
+	if(!is.logical(round)) stop("roundm must be logical")
 
+	if(method == "auto") if(max(d) - min(d) > 1000) method <- "detrital" else method <- "normal"
+	if(method == "normal") initial <- initial[1:2]
 	if(length(d) < 1) stop("length of d must be more than 2")
 	n <- length(d)
 	del <- (max(d) - min(d)) / (1 - 2 * delta) * delta
-	if(method == "normal" | method == "divide") initial <- initial[1:2]
+
 
 
 	if(is.na(xlim[1])){
@@ -27,7 +42,7 @@ badzupa <- function(
 
 	if(round){
 		for(i in 1:length(d)){
-		set.seed(i);d[i] <- rnorm(1, d[i], 1/2)
+			set.seed(i);d[i] <- rnorm(1, d[i], 1/2)
 		}
 	}
 	set.seed(NULL)
@@ -68,7 +83,7 @@ badzupa <- function(
 	#---------------------------------------------------------------------------
 	cat("computing")
 	compute_likelihood <- function(v, f = f0, print. = T) {
-	  if(print. == T) cat(".")
+		if(print. == T) cat(".")
 		K <- make_kernel(v,nx) 
 		result <-  compute_f_estimate(K, f0 = f0, y = y) 
 		f <- matrix(result$f)
@@ -83,10 +98,10 @@ badzupa <- function(
 		loglik3 <- -1/2 * log(det(A))
 
 		if(method == "detrital") {
-		  if(v[3] < 0) v[3] <- 10^(-10)
-		  loglik4 <- -1/(2 * 2^2) * (log(v[3]))^2
-		  loglik3 <- loglik3 + loglik4
-		  }
+			if(v[3] < 0) v[3] <- 10^(-10)
+			loglik4 <- -1/(2 * 2^2) * (log(v[3]))^2
+			loglik3 <- loglik3 + loglik4
+		}
 		loglik <- loglik1 + loglik2 + loglik3
 
 		return(-loglik)

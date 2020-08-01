@@ -1,4 +1,8 @@
 bdcdf <- function(res, age = NA, ci = .95){
+	if(!is.na(age) & !is.numeric(age)) stop("age must be numeric or NA")
+	if(!is.numeric(ci)) stop("ci must be numeric (0 < ci < 1)")
+	if(is.numeric(ci)) if(ci <= 0 | ci >= 1) stop("ci must be numeric (0 < ci < 1)")
+
 	x <- res$x
 
 	if(is.na(age)) age <- min(x)

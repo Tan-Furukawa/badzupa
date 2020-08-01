@@ -3,7 +3,7 @@
 \title{execute LA-LGP algorism}
 \description{All computation must use this fuction.}
 \usage{
-	badzupa(d,  method = "auto", xlim = c(NA,NA), initial = c(1,2,0.1), m = 200, delta = 1/25, round = TRUE)
+	badzupa(d,  method = "auto", xlim = c(NA,NA), initial = c(0.1,0.1,0.1), m = 200, delta = 1/25, round = TRUE)
 }
 \arguments{
 	\item{d}{vector; one dimentional data}

@@ -1,5 +1,5 @@
-  bdlarge <- function(
- 		    d,
+bdlarge <- function(
+		    d,
 		    detection = "peak",
 		    ci = 0.95,
 		    eps = 0.03,
@@ -7,20 +7,41 @@
 		    xlim = c(NA,NA),
 		    overlap = 0.2,
 		    lim = 100,
+		    initial = c(0.1,0.1),
 		    diag = FALSE
-   		  ){
-  
+		    ){
+
+
+	if(!is.numeric(d)) stop("d must be numeric vector")
+	if(is.matrix(d) | is.data.frame(d)) stop("d must be vector")
+	if(length(d) <= 1) stop("length of d must be larger than 2")
+	if(!(detection == "peak" | detection == "valley")) stop("detection is peak or valley")
+	if(length(xlim) != 2) stop("legnth of xlim must be 2")
+	if(!is.na(xlim[1]) & !is.numeric(xlim[1])) stop("xlim[1] must be numeric or NA")
+	if(!is.na(xlim[2]) & !is.numeric(xlim[2])) stop("xlim[2] must be numeric or NA")
+	if(!(length(initial)) == 2) stop("length of initial is 2")
+	if(!is.numeric(initial[1])) stop("initial[1] must be numeric")
+	if(!is.numeric(initial[2])) stop("initial[2] must be numeric")
+	if(!is.numeric(ci)) stop("ci must be numeric (0 < ci < 1)")
+	if(is.numeric(ci)) if(ci <= 0 | ci >= 1) stop("ci must be numeric (0 < ci < 1)")
+	if(!is.numeric(eps)) stop("eps must be numeric")
+	if(!is.numeric(minPts)) stop("minPts must be numeric")
+	if(!is.numeric(lim)) stop("lim must be interger")
+	if(!is.logical(diag)) stop("diag must be logical")
+	if(!is.numeric(overlap)) stop("overlap must be numeric (0 < overlap < 1)")
+	if(is.numeric(overlap)) if(overlap <= 0 | overlap >= 1) stop("overlap must be numeric (0 < overlap < 1)")
+
 
 	dens <- density(d, bw = "SJ")
 	densx <- dens$x
 	densy <- dens$y
 
-	
+
 	if(detection == "valley") b_peaks <- find_peaks(densy, detection = "peak", lim = 0.001)
 	if(detection == "peak") b_peaks <- find_peaks(densy, detection = "valley", lim = 0.001)
-       	b_peaks$y <- -b_peaks$y
+	b_peaks$y <- -b_peaks$y
 
- 	b_peaks$x <- b_peaks$x / 10 * (max(densx) - min(densx)) + min(densx)
+	b_peaks$x <- b_peaks$x / 10 * (max(densx) - min(densx)) + min(densx)
 
 	threshold <- b_peaks$x
 	threshold <- c(min(d), threshold, max(d))
@@ -37,8 +58,8 @@
 		a <- d[threshold[i] <= d & d <= threshold[i + 1]]
 		div_d <- c(div_d, list(a))
 	}
-	
-	
+
+
 
 
 
@@ -58,7 +79,7 @@
 		}
 		div_d <- div_d[-(i - 1)]
 	}
-	
+
 
 
 	K <- length(div_d)
@@ -83,19 +104,19 @@
 			div_d_with_overlap[[i]] <- c(div_d[[i]], u[u < min(u) + overlap[i + 1]], l[l > max(l) - overlap[i - 1]])
 		}
 
-}
+	}
 
 
 	div_d <- div_d_with_overlap
 
 	if(diag) {
-	  plot(x = NA, y = NA, xlim = c(min(d), max(d)), ylim = c(0,K))
-	  for(i in 1:K){
-	    points(div_d[[i]], numeric(length(div_d[[i]])) + i)
-	  }
-	  abline(v = threshold)
+		plot(x = NA, y = NA, xlim = c(min(d), max(d)), ylim = c(0,K))
+		for(i in 1:K){
+			points(div_d[[i]], numeric(length(div_d[[i]])) + i)
+		}
+		abline(v = threshold)
 	}
-	
+
 
 	conf <- list()
 	peak <- list()
@@ -106,11 +127,11 @@
 	p_CIup <-matrix(0, ncol = m, nrow = K) 
 	p_CIlow <-matrix(0, ncol = m, nrow = K) 
 
-	initial = c(0.2,2,1)
+
 	cluster_sd <- data.frame(id = c(), x = c(), y = c(), xsdm = c(), xsdp = c(), ysdm = c(), ysdp = c(), probability = c())
 
 	for(i in 1:K){
-	  cat(i,"/",K,"\n")
+		cat(i,"/",K,"\n")
 
 		if(i == 1 & !is.na(xlim[1])){
 			dd <- badzupa(div_d[[i]], method = "normal", xlim = c(xlim[1], NA),  m = 200,  delta = 0, initial = initial)
@@ -127,18 +148,18 @@
 
 		pe <- bdpeaks(dd, detection = detection, minPts = minPts, eps = eps, diag = diag)
 		cluster_sd <- rbind(cluster_sd, data.frame(id = numeric(length(pe$cluster_min_xsd)) + i,
-                              							   x = pe$peak$x,
-                              							   y = pe$peak$y,
-                              							   xsdm = pe$cluster_min_xsd,
-                              							   xsdp = pe$cluster_max_xsd,
-                              							   ysdm = pe$cluster_min_ysd,
-                              							   ysdp = pe$cluster_max_ysd,
-                              							   probability = pe$probability))
+							   x = pe$peak$x,
+							   y = pe$peak$y,
+							   xsdm = pe$cluster_min_xsd,
+							   xsdp = pe$cluster_max_xsd,
+							   ysdm = pe$cluster_min_ysd,
+							   ysdp = pe$cluster_max_ysd,
+							   probability = pe$probability))
 
 		p_mean[i,] <- conf$p_mean
 		p_CIup[i,] <- conf$p_CI[1,]
 		p_CIlow[i,] <- conf$p_CI[2,]
-		
+
 
 	}
 
@@ -163,8 +184,8 @@
 		if(is.na(xlim[1])) xlim[1] <- min(vecx)
 		if(is.na(xlim[2])) xlim[2] <- max(vecx)
 
- 		if(srt) minx <- (1 - out) * min(vecx) + out * xlim[1] else minx <- min(vecx)
- 		if(lst) maxx <- (1 - out) * max(vecx) + out * xlim[2] else maxx <- max(vecx)
+		if(srt) minx <- (1 - out) * min(vecx) + out * xlim[1] else minx <- min(vecx)
+		if(lst) maxx <- (1 - out) * max(vecx) + out * xlim[2] else maxx <- max(vecx)
 
 		x <- seq(minx, maxx, length = m)
 		if(is.na(vecy[1])) return(x)
@@ -181,11 +202,11 @@
 	lt <- length(threshold)
 
 
-#	stop() 
-#	plot(NA, NA, xlim = c(0, 500), ylim = c(0,0.01))
-#	for(i in 1:4) lines(dx[i,], p_mean[i,], col = "blue")
-#	abline(v = threshold, col = "red")
-	
+	#	stop() 
+	#	plot(NA, NA, xlim = c(0, 500), ylim = c(0,0.01))
+	#	for(i in 1:4) lines(dx[i,], p_mean[i,], col = "blue")
+	#	abline(v = threshold, col = "red")
+
 	dx2 <- dx
 	dx[1,] <- cutter(dx2[1,], xlim = c(threshold[1], threshold[2]))
 	p_mean[1,] <- cutter(dx2[1,], p_mean[1,], xlim = c(threshold[1], threshold[2]))$y
@@ -194,10 +215,10 @@
 
 	if(l >= 3){
 		for(i in 2:(l - 1)){
-	dx[i,] <- cutter(dx2[i,], xlim = c(threshold[i], threshold[i + 1]))
-	p_mean[i,] <- cutter(dx2[i,], p_mean[i,], xlim = c(threshold[i], threshold[i + 1]))$y
-	p_CIup[i,]  <- cutter(dx2[i,], p_CIup[i,],  xlim = c(threshold[i], threshold[i + 1]))$y
-	p_CIlow[i,] <- cutter(dx2[i,], p_CIlow[i,], xlim = c(threshold[i], threshold[i + 1]))$y
+			dx[i,] <- cutter(dx2[i,], xlim = c(threshold[i], threshold[i + 1]))
+			p_mean[i,] <- cutter(dx2[i,], p_mean[i,], xlim = c(threshold[i], threshold[i + 1]))$y
+			p_CIup[i,]  <- cutter(dx2[i,], p_CIup[i,],  xlim = c(threshold[i], threshold[i + 1]))$y
+			p_CIlow[i,] <- cutter(dx2[i,], p_CIlow[i,], xlim = c(threshold[i], threshold[i + 1]))$y
 		}
 	}
 
@@ -208,21 +229,21 @@
 
 	if(is.na(xlim[1])) mind <- min(d) else mind <- xlim[1]
 	if(is.na(xlim[2])) maxd <- max(d) else maxd <- xlim[2]
-	
+
 
 	x <- seq(mind, maxd, length = M)
 
 
 	erf <- function(x) 2 * pnorm(x * sqrt(2)) - 1
 	div_by_erf <- function(num, j) (erf(4 * (j / num) - 2) + 1) / 2
-		
+
 
 
 	merge_div <- function(dx, mat){
 		p <- numeric(M)
 		l <- length(dx[,1]) 
 
-		
+
 		for(i in 1:l){
 			if(i != l){
 				x_overlap <- x[min(dx[i + 1,]) <= x & x <= max(dx[i,])]
@@ -288,44 +309,44 @@
 
 	find_min <- function(vec) (abs(vec) == min(abs(vec)))
 	which_is_true_peaks <- t(apply(diff_peaks_cluster, 1, find_min))
-	
+
 	true_peaks <- c()
 	for(i in 1:lp) {
-	tp <- which_is_true_peaks[,i]
-	if(sum(tp) == 1) true_peaks <- c(true_peaks, (1:lc)[tp])
-	if(sum(tp) >= 2) true_peaks <- c(true_peaks,
-					 (1:lc)[(diff_peaks_cluster[,i] == min(diff_peaks_cluster[,i][tp]))][1])
+		tp <- which_is_true_peaks[,i]
+		if(sum(tp) == 1) true_peaks <- c(true_peaks, (1:lc)[tp])
+		if(sum(tp) >= 2) true_peaks <- c(true_peaks,
+						 (1:lc)[(diff_peaks_cluster[,i] == min(diff_peaks_cluster[,i][tp]))][1])
 	}
 
 	cluster_sd <- cluster_sd[true_peaks, ]
 	peaks <- peaks[as.logical(apply(which_is_true_peaks, 2, sum)),]
-	
+
 	cluster_sd$ysdm <- peaks$y / (cluster_sd$y) * cluster_sd$ysdm
 	cluster_sd$ysdp <- peaks$y / (cluster_sd$y) * cluster_sd$ysdp
 
 	cluster_sd$y <- peaks$y
 
 	if(diag == T) {
-	  plot(x, p_mean, type = "l", ylim = c(0, max(p_CIup)))
-	  points(cluster_sd[,c("x","y")])
-	  lines(x, p_CIup, type = "l")
-	  lines(x, p_CIlow, type = "l")
+		plot(x, p_mean, type = "l", ylim = c(0, max(p_CIup)))
+		points(cluster_sd[,c("x","y")])
+		lines(x, p_CIup, type = "l")
+		lines(x, p_CIlow, type = "l")
 
-	  segments(x0 = cluster_sd$x,
-	           y0 = cluster_sd$ysdm,
-	           x1 = cluster_sd$x,
-	           y1 = cluster_sd$ysdp)
-	  
-	  segments(x0 = cluster_sd$xsdm,
-	           y0 = cluster_sd$y,
-	           x1 = cluster_sd$xsdp,
-	           y1 = cluster_sd$y)
-	  
+		segments(x0 = cluster_sd$x,
+			 y0 = cluster_sd$ysdm,
+			 x1 = cluster_sd$x,
+			 y1 = cluster_sd$ysdp)
 
-	  
-	  rug(d)
+		segments(x0 = cluster_sd$xsdm,
+			 y0 = cluster_sd$y,
+			 x1 = cluster_sd$xsdp,
+			 y1 = cluster_sd$y)
+
+
+
+		rug(d)
 	}
-	
+
 
 	ans <- list(p_mean = p_mean,
 		    x = x,

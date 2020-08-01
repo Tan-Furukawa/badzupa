@@ -1,4 +1,6 @@
 bdpdf <- function(res, ci = 0.95){
+	if(!is.numeric(ci)) stop("ci must be numeric (0 < ci < 1)")
+	if(is.numeric(ci)) if(ci <= 0 | ci >= 1) stop("ci must be numeric (0 < ci < 1)")
 
 	steps <- 1000
 	hyp <- res$hyp
