@@ -1,8 +1,8 @@
-# badzupa
+# badzupa (Beta Version)
 
 # installation
 ```r
-install.packages("devtools)
+install.packages("devtools")
 devtools::install_github("Tan-Furukawa/badzupa")
 ```
 
