@@ -1,22 +1,21 @@
-library(tantools)
 #' plot density curve
 #'
-#' @param d data
-#' @param h beta
+#' @param result_bddensity result_bddensity
 #' @param q beta
 #' @param n_BT beta
 #' @param xlim beta
 #' @param m xilm
 #' @export
 bdquantile <- function(
-  d,
-  h,
+  result_bddesntiy,
   q = 0.05,
   n_BT = 1000,
   xlim = c(NA, NA),
   m = 400
 )
   {
+  d <- result_bddesntiy$d
+  h <- result_bddesntiy$bw
 
   message("0%", appendLF = F)
 
@@ -75,7 +74,7 @@ for(i in 1:m){
 }
 
 message("")
-return(list(x = x, quantile = t_pt))
+return(list(BTsamples = BT_dens_list, x = x, quantile = t_pt))
 }
 
 ## t_pt: the 1-\alpha quantile of deviation at each point

@@ -12,7 +12,8 @@ bddensity <- function(d,
                      beta0 = 1,
                      m = 400,
                      log.range = c(-4, 1),
-                     xlim = c(NA, NA)) {
+                     xlim = c(NA, NA),
+                     data.is.integer = F) {
   message("0%", appendLF = F)
   # step 0 config
   #-------------------------------------------------------------------------------
@@ -21,7 +22,13 @@ bddensity <- function(d,
   mind <- min(d)
   maxd <- max(d)
 
+  n <- length(d)
 
+  if(data.is.integer) {
+    for(i in 1:n) {
+      d[i] <- rnorm(1, d[i], 1.0)
+    }
+  }
   if (is.na(xlim[1]))
     xlim[1] = mind - (maxd - mind) * 0.02
   if (is.na(xlim[2]))
@@ -37,7 +44,6 @@ bddensity <- function(d,
   order_D <- order(D)
   D <- D[order_D]
 
-  n <- length(D)
   x <- seq(normalize_axis(xlim[1]),
            normalize_axis(xlim[2]), length = m)
 
@@ -272,7 +278,7 @@ bddensity <- function(d,
   h <- h * (maxd - mind)
 
   message("")
-  return(list(x = x, y = y, bw = h))
+  return(list(x = x, y = y, bw = h, d = d))
 }
 
 #plot(density(d, bw = 0.05))

@@ -4,13 +4,9 @@
 \alias{bdquantile}
 \title{plot density curve}
 \usage{
-bdquantile(d, h, q = 0.05, n_BT = 1000, xlim = c(NA, NA), m = 400)
+bdquantile(result_bddesntiy, q = 0.05, n_BT = 1000, xlim = c(NA, NA), m = 400)
 }
 \arguments{
-\item{d}{data}
-
-\item{h}{beta}
-
 \item{q}{beta}
 
 \item{n_BT}{beta}
@@ -18,6 +14,8 @@ bdquantile(d, h, q = 0.05, n_BT = 1000, xlim = c(NA, NA), m = 400)
 \item{xlim}{beta}
 
 \item{m}{xilm}
+
+\item{result_bddensity}{result_bddensity}
 }
 \description{
 plot density curve

@@ -10,7 +10,8 @@ bddensity(
   beta0 = 1,
   m = 400,
   log.range = c(-4, 1),
-  xlim = c(NA, NA)
+  xlim = c(NA, NA),
+  data.is.integer = F
 )
 }
 \arguments{
