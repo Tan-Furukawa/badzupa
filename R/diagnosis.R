@@ -21,13 +21,13 @@ diagnosis <- function(result_bddensity,
   par(cex=0.8, mai=c(0.2,0.1,0.2,0.1))
   par(fig=c(0.1,0.9,0.3,0.9))
   badzupa::plot_density(dens, bdq, rug = T)
-  title("Result of peaks detection")
+  title("Confident Peaks")
   segments_peaks(peaks)
 
   par(fig=c(0.1,0.9,0.1,0.25), new=TRUE)
-  badzupa::plot_fit_peaks(fit, alpha = alpha)
+  badzupa::plot_fit_peaks(dens, fit, alpha = alpha)
   mtext("x", side = 1, line  = 2)
-  title("Result of fitting")
+  title("Peaks range estimation")
   box()
 
 

@@ -4,10 +4,12 @@
 \alias{plot_fit_peaks}
 \title{plot_fit_peaks}
 \usage{
-plot_fit_peaks(result_peak_fit, alpha = 0.95)
+plot_fit_peaks(result_bddensity, result_peak_fit, alpha = 0.95)
 }
 \arguments{
-\item{result_peak_fit}{result_peak_fit}
+\item{result_bddensity}{result_bddensity}
+
+\item{result_peak_fit}{result_bddensity}
 
 \item{alpha}{alpha}
 }

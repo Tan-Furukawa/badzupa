@@ -1,11 +1,14 @@
 #' plot_fit_peaks
 #'
-#' @param result_peak_fit result_peak_fit
+#' @param result_peak_fit result_bddensity
+#' @param result_bddensity result_bddensity
 #' @param alpha alpha
 #' @export
-plot_fit_peaks <- function(result_peak_fit, alpha = 0.95) {
+plot_fit_peaks <- function(result_bddensity,
+                           result_peak_fit, alpha = 0.95) {
   fit <- result_peak_fit
- range_peaks <- cbind(fit[,1:2], numeric(nrow(fit)))
+  x <- result_bddensity$x
+ range_peaks <- cbind(fit[,1:2,drop = F], numeric(nrow(fit)))
  colnames(range_peaks) <- c("low", "up", "rank")
   is.overlapped <- function(rangeA, rangeB) {
     if(!(rangeA[2] < rangeB[1] | rangeB[2] < rangeA[1])) {

@@ -2,10 +2,11 @@
 #'
 #' @param result_bddenstiy result_bddenstiy
 #' @param result_bdquantile result_bdquantile
+#' @export
 fit_peaks <- function(result_bddenstiy, result_bdquantile) {
 
-#result_bddenstiy <- dens
-#result_bdquantile <- bdq
+#result_bddenstiy <- a1
+#result_bdquantile <- a2
 
 d <- result_bddenstiy$d
 h <-result_bddenstiy$bw
