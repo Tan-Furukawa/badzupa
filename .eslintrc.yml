@@ -1,0 +1,33 @@
+env:
+  browser: true
+  es6: true
+  node: true
+extends:
+  - 'plugin:react/recommended'
+  - google
+  - 'plugin:@typescript-eslint/recommended'
+  - prettier # 上の定義の整形に関するルールを無効化
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 2018
+  sourceType: module
+plugins:
+  - react
+  - '@typescript-eslint'
+  - prettier # eslint-plugin-prettier の追加
+rules:
+  "@typescript-eslint/no-namespace": "off"
+  new-cap: 0
+  # 関数の複雑さを 10 以下にする
+  complexity: ['error', 10]
+  # React のプロパティの型チェックを省略する (TypeScript でチェックされるため)
+  react/prop-types: off
+  # prettier のチェックでErrorとするための設定。
+  prettier/prettier:
+    - error
+  require-jsdoc : 0

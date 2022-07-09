@@ -1,0 +1,24 @@
+.env
+node_modules
+!node_modules/r-script
+.vscode
+product
+/cpp/lib/Eigen/*
+/cpp/lib/*
+/cpp/build/*
+.env
+.RData
+.Rhistory
+Tmp
+sampleData
+test.html
+run.r
+# /build
+# /scripts
+# /cppR/r-source
+# /cppR/R-devel
+# /cppR/cpp
+# /cppR/*
+# .Rproj.user
+# /R/BPC
+

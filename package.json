@@ -1,0 +1,139 @@
+{
+  "name": "badzupa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ./dist/main.js",
+    "build:main": "tsc",
+    "build:render": "webpack",
+    "copy-files": "cp -a ./src/algorithm/ ./dist/algorithm",
+    "copy-r-script": "cp -a ./src/r-script ./dist",
+    "all": "npm run copy-files && npm run build:main && npm run build:render && npm start",
+    "package:mac": "webpack && electron-builder --mac --x64",
+    "package:windows": "webpack && electron-builder --win --x64",
+    "package:linux": "webpack && electron-builder --linux --x64"
+  },
+  "build": {
+    "appId": "com.electron.badzupa",
+    "afterSign": "scripts/notarize.js",
+    "productName": "BADZUPA",
+    "directories": {
+      "output": "./product"
+    },
+    "files": [
+      "assets",
+      "./dist",
+      "./dist/index.html",
+      "./dist/main.js",
+      "package.json",
+      "package-lock.json"
+    ],
+    "asarUnpack": [
+      "./dist/data/",
+      "./dist/algorithm/",
+      "./node_modules/r-script",
+      "./node_modules/@types/r-script"
+    ],
+    "dmg": {
+      "sign": false
+    },
+    "mac": {
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "icon": "icon/badzupa.png",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "icon": "./icon/todo.ico",
+      "target": "msi"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@polymer/lit-element": "^0.7.1",
+    "@react-pdf/renderer": "^2.2.0",
+    "@types/r-script": "^0.0.4",
+    "@types/sqlite3": "^3.1.8",
+    "blob-stream": "^0.1.3",
+    "canvas-datagrid": "^0.4.5",
+    "child_process": "^1.0.2",
+    "chokidar": "^3.5.3",
+    "create-react-class": "^15.7.0",
+    "d3": "^7.4.4",
+    "electron-notarize": "^1.2.1",
+    "eslint-loader": "^4.0.2",
+    "fix-path": "^3.0.0",
+    "fs-extra": "^8.1.0",
+    "jspdf": "^2.5.1",
+    "pdfkit": "^0.13.0",
+    "pdfmake": "^0.2.5",
+    "r-integration": "^2.3.0",
+    "r-script": "^0.0.4",
+    "react": "^16.14.0",
+    "react-color": "^2.19.3",
+    "react-csv-reader": "^3.5.0",
+    "react-datasheet": "^1.4.9",
+    "react-dom": "^16.14.0",
+    "react-loader-spinner": "^5.1.5",
+    "react-redux": "^7.2.8",
+    "react-select": "^5.3.2",
+    "reactcss": "^1.2.3",
+    "redux": "^4.2.0",
+    "redux-saga": "^1.1.3",
+    "reset-css": "^5.0.1",
+    "save-svg-as-png": "^1.4.17",
+    "shortid": "^2.2.16",
+    "simple-statistics": "^7.7.5",
+    "sqlite3": "^5.0.8",
+    "styled-components": "^5.3.5",
+    "svg-to-pdfkit": "^0.1.8",
+    "svg2pdf.js": "^2.2.0",
+    "typescript-fsa": "^3.0.0",
+    "typescript-fsa-reducers": "^1.2.2",
+    "util": "^0.12.4"
+  },
+  "devDependencies": {
+    "@types/blob-stream": "^0.1.30",
+    "@types/create-react-class": "^15.6.3",
+    "@types/d3": "^7.4.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/pdfmake": "^0.1.21",
+    "@types/react": "^18.0.9",
+    "@types/react-color": "^3.0.6",
+    "@types/react-dom": "^18.0.3",
+    "@types/react-pdf": "^5.7.2",
+    "@types/react-redux": "^7.1.24",
+    "@types/redux": "^3.6.0",
+    "@types/shortid": "^0.0.29",
+    "@types/styled-components": "^5.1.25",
+    "@types/svg-to-pdfkit": "^0.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "css-loader": "^6.7.1",
+    "electron": "^13.6.9",
+    "electron-builder": "^23.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.6.2",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
