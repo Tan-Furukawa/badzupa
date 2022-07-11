@@ -1,0 +1,36 @@
+directories:
+  output: ./product
+  buildResources: build
+appId: com.electron.badzupa
+afterSign: scripts/notarize.js
+productName: BADZUPA
+files:
+  - filter:
+      - assets
+      - ./dist
+      - ./dist/index.html
+      - ./dist/main.js
+      - package.json
+      - package-lock.json
+asarUnpack:
+  - ./dist/data/
+  - ./dist/algorithm/
+  - ./node_modules/r-script
+  - ./node_modules/@types/r-script
+dmg:
+  sign: false
+mac:
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  icon: icon/badzupa.png
+  target:
+    - dmg
+win:
+  icon: ./icon/todo.ico
+  target: msi
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+electronVersion: 13.6.9

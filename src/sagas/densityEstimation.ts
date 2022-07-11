@@ -136,7 +136,7 @@ export function* doCrossValidation(sampleId: string) {
         id: 'cross-cv-child-process-error',
         msg: `
         ${crossValidation.err.err}; install R and enable path through 'Rscript'.
-        [hint] https://www.google.com/webhp?gl=us&hl=en&gws_rd=cr&pws=0
+        [hint] https://github.com/Tan-Furukawa/badzupa
         `,
         status: 'error',
       }),
@@ -149,7 +149,7 @@ export function* doCrossValidation(sampleId: string) {
           id: 'cross-validation-no-package-error',
           msg: `
             error in execution of R: ${crossValidation.err.err}
-            [hint] https://www.google.com/webhp?gl=us&hl=en&gws_rd=cr&pws=0
+            [hint] https://github.com/Tan-Furukawa/badzupaR
             `,
           status: 'error',
         }),

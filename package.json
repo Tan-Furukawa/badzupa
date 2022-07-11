@@ -1,6 +1,6 @@
 {
   "name": "badzupa",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "./dist/main.js",
   "scripts": {
@@ -59,7 +59,7 @@
     }
   },
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3",
   "dependencies": {
     "@polymer/lit-element": "^0.7.1",
     "@react-pdf/renderer": "^2.2.0",

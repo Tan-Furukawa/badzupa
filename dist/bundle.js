@@ -59250,6 +59250,15 @@ const AnalysisView = () => {
                 ' ',
                 "bootstrap size:",
                 react_1.default.createElement(BootstrapSizeBox, null)),
+            react_1.default.createElement(ConfigIndexTitle, null, " mds config"),
+            react_1.default.createElement(SubIndex, null,
+                ' ',
+                "bootstrap Size: ",
+                react_1.default.createElement(BootstrapSizeBoxAtMds, null)),
+            react_1.default.createElement(SubIndex, null,
+                ' ',
+                "confident level: ",
+                react_1.default.createElement(ConfidentLevelBoxAtMds, null)),
             react_1.default.createElement(ConfigIndexTitle, null, " progress of computation"),
             react_1.default.createElement(SubIndex, null,
                 ' ',
@@ -59263,15 +59272,6 @@ const AnalysisView = () => {
                 ' ',
                 "mds:",
                 react_1.default.createElement(ProgressBar, { progress: mdsProgress })),
-            react_1.default.createElement(ConfigIndexTitle, null, " mds parameters"),
-            react_1.default.createElement(SubIndex, null,
-                ' ',
-                "bootstrap Size: ",
-                react_1.default.createElement(BootstrapSizeBoxAtMds, null)),
-            react_1.default.createElement(SubIndex, null,
-                ' ',
-                "confident level: ",
-                react_1.default.createElement(ConfidentLevelBoxAtMds, null)),
             react_1.default.createElement(ConfigIndexTitle, null, " reference "))));
 };
 exports.AnalysisView = AnalysisView;
@@ -59748,10 +59748,7 @@ const RegisterView = () => {
             react_1.default.createElement(SampleNameBox, null),
             react_1.default.createElement("div", null,
                 "Input format:",
-                react_1.default.createElement(input_1.ToggleInputFormat, { names: ['Data Grid', 'CSV'], ids: ['dataGrid', 'csv'], onChange: onToggleDataGrid, label: 'Input Format:', selectedId: nowSelectDataLoadingMethod })),
-            react_1.default.createElement("div", null,
-                "Input format:",
-                react_1.default.createElement(input_1.ToggleInputFormat, { names: ['U-Pb age', 'U-Pb isotope'], ids: ['aaa', 'bbb'], onChange: e => console.log(e), label: 'Input Data', selectedId: nowSelectDataLoadingMethod }))),
+                react_1.default.createElement(input_1.ToggleInputFormat, { names: ['Data Grid', 'CSV'], ids: ['dataGrid', 'csv'], onChange: onToggleDataGrid, label: 'Input Format:', selectedId: nowSelectDataLoadingMethod }))),
         react_1.default.createElement(GridContainer, null,
             react_1.default.createElement(GridBox, null,
                 nowSelectDataLoadingMethod === 'csv' && (react_1.default.createElement(react_1.default.Fragment, null,
@@ -61411,23 +61408,24 @@ const config_1 = __webpack_require__(/*! ./config */ "./src/components/plot/conf
 const densityPlotFunctions_1 = __webpack_require__(/*! ./densityPlotFunctions */ "./src/components/plot/densityPlotFunctions.ts");
 const colors_1 = __webpack_require__(/*! ./colors */ "./src/components/plot/colors.ts");
 function groupBy(arr, fn) {
-    const keys = arr.map(fn);
+    const keys = [...new Set(arr.map(fn))];
     return keys.reduce((prev, key) => {
         prev.push(arr.filter(d => fn(d) === key));
         return prev;
     }, []);
 }
 const MdsGraph = props => {
-    console.log(props);
     if (props === undefined)
         return react_1.default.createElement(react_1.default.Fragment, null);
     if (props.mdsResult.ellipseCoordinate === undefined)
         return react_1.default.createElement(react_1.default.Fragment, null);
     if (props.mdsResult.centerCoordinate === undefined)
         return react_1.default.createElement(react_1.default.Fragment, null);
+    console.log(props.mdsResult.ellipseCoordinate);
     const ellipseCoordinates = groupBy(props.mdsResult.ellipseCoordinate, d => {
         return d.id;
     });
+    console.log(ellipseCoordinates);
     const centerCoordinate = props.mdsResult.centerCoordinate;
     const ref = (0, react_1.useRef)(null);
     const scale = (0, densityPlotFunctions_1.makeScale)(props.mdsResult.ellipseCoordinate.map(d => [d.x, d.y]), config_1.viewParamMds, false, undefined, undefined, 0.05);
@@ -61435,7 +61433,9 @@ const MdsGraph = props => {
         const group = (0, d3_1.select)(props.refSvg.current);
         group.selectAll('*').remove(); // delete all children
         (0, densityPlotFunctions_1.makeAxis)(group, scale, config_1.viewParamMds, null);
-        for (const ellipseCoordinate of ellipseCoordinates) {
+        for (let i = 0; i < ellipseCoordinates.length; i++) {
+            const ellipseCoordinate = ellipseCoordinates[i];
+            console.log(ellipseCoordinate);
             if (ellipseCoordinate.length !== 0) {
                 if (ellipseCoordinate[0] === undefined)
                     break;
@@ -62688,7 +62688,7 @@ function* doSaveBootstrapPeaks(sampleId) {
         if (densityInfo.bootstrapResult.bootstrapPeaks !== undefined) {
             const res = yield safe((0, effects_1.call)(window.densityEstimationR.saveBootstrapPeaks, densityInfo.bootstrapResult.bootstrapPeaks, sampleId));
             if (!res.err) {
-                console.error(res.err);
+                // console.error(res.err);
                 // error
             }
         }
@@ -62866,7 +62866,7 @@ function* doCrossValidation(sampleId) {
             id: 'cross-cv-child-process-error',
             msg: `
         ${crossValidation.err.err}; install R and enable path through 'Rscript'.
-        [hint] https://www.google.com/webhp?gl=us&hl=en&gws_rd=cr&pws=0
+        [hint] https://github.com/Tan-Furukawa/badzupa
         `,
             status: 'error',
         }));
@@ -62878,7 +62878,7 @@ function* doCrossValidation(sampleId) {
                 id: 'cross-validation-no-package-error',
                 msg: `
             error in execution of R: ${crossValidation.err.err}
-            [hint] https://www.google.com/webhp?gl=us&hl=en&gws_rd=cr&pws=0
+            [hint] https://github.com/Tan-Furukawa/badzupaR
             `,
                 status: 'error',
             }));

@@ -1,28 +1,19 @@
 {
   "sampleStatusList": [
     {
-      "sampleName": "fkfkfk",
-      "done": 1,
-      "sampleId": "7ft0bEI-M",
-      "estimationParam": {
-        "bootstrapSize": 400,
-        "usedAlgorithmList": [
-          {
-            "algorithm": "adeba",
-            "used": true
-          },
-          {
-            "algorithm": "botev",
-            "used": true
-          },
-          {
-            "algorithm": "sj",
-            "used": true
-          }
-        ],
-        "densityEstimationConfidentLevel": 90,
-        "crossValidationSize": 10
-      }
+      "sampleName": "WWZ",
+      "done": 0,
+      "sampleId": "GgVOUkze6"
+    },
+    {
+      "sampleName": "Tetori",
+      "done": 0,
+      "sampleId": "l-478IzIL"
+    },
+    {
+      "sampleName": "OSM",
+      "done": 0,
+      "sampleId": "pSEhWU-w8"
     }
   ]
 }

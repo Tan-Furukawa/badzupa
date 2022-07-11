@@ -69,7 +69,12 @@ export interface IInitialSetupFunction {
 
 declare global {
   interface Window {
-    densityEstimationR: IDensityEstimationR;
     mdsEstimationR: IMdsEstimationR;
+  }
+}
+
+declare global {
+  interface Window {
+    densityEstimationR: IDensityEstimationR;
   }
 }

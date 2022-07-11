@@ -18,7 +18,7 @@ interface IMdsGraph {
 }
 
 function groupBy<T, K>(arr: T[], fn: (d: T) => K) {
-  const keys = arr.map(fn);
+  const keys = [...new Set(arr.map(fn))];
   return keys.reduce((prev: T[][], key: K) => {
     prev.push(arr.filter(d => fn(d) === key));
     return prev;
@@ -26,14 +26,15 @@ function groupBy<T, K>(arr: T[], fn: (d: T) => K) {
 }
 
 export const MdsGraph: React.FC<IMdsGraph> = props => {
-  console.log(props);
   if (props === undefined) return <></>;
   if (props.mdsResult.ellipseCoordinate === undefined) return <></>;
   if (props.mdsResult.centerCoordinate === undefined) return <></>;
 
+  console.log(props.mdsResult.ellipseCoordinate);
   const ellipseCoordinates = groupBy(props.mdsResult.ellipseCoordinate, d => {
     return d.id;
   });
+  console.log(ellipseCoordinates);
 
   const centerCoordinate = props.mdsResult.centerCoordinate;
 
@@ -52,7 +53,9 @@ export const MdsGraph: React.FC<IMdsGraph> = props => {
     const group = select(props.refSvg.current);
     group.selectAll('*').remove(); // delete all children
     makeAxis(group, scale, viewParamMds, null);
-    for (const ellipseCoordinate of ellipseCoordinates) {
+    for (let i = 0; i < ellipseCoordinates.length; i++) {
+      const ellipseCoordinate = ellipseCoordinates[i];
+      console.log(ellipseCoordinate);
       if (ellipseCoordinate.length !== 0) {
         if (ellipseCoordinate[0] === undefined) break;
         const id = { ...ellipseCoordinate[0] }.id;

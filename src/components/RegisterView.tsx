@@ -346,7 +346,7 @@ const RegisterView: React.FC = () => {
           />
         </div>
 
-        <div>
+        {/* <div>
           Input format:
           <ToggleInputFormat
             names={['U-Pb age', 'U-Pb isotope']}
@@ -355,7 +355,7 @@ const RegisterView: React.FC = () => {
             label={'Input Data'}
             selectedId={nowSelectDataLoadingMethod}
           />
-        </div>
+        </div> */}
       </InputContainer>
 
       <GridContainer>

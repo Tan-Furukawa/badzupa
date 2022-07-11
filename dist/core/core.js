@@ -85,7 +85,7 @@ const saveAsPDF = (str) => {
     const doc = new pdfkit_1.default({
         bufferPages: true,
     });
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${config_1.viewParam.width} ${config_1.viewParam.height}">
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${config_1.viewParam.width} ${config_1.viewParam.height * 1.1}">
   ${str} </svg>`;
     const stream = doc.pipe((0, blob_stream_1.default)());
     (0, svg_to_pdfkit_1.default)(doc, svg, 0, 0);
@@ -180,6 +180,26 @@ const saveAgeDataToDB = async (ageData) => {
 };
 const deleteAgeDataFromDB = async (sampleId) => {
     await (0, dbConnection_1.dbRun)(`delete from ageData where sampleId='${sampleId}'`).catch((err) => {
+        console.error(err);
+        throw Error;
+    });
+    await (0, dbConnection_1.dbRun)(`delete from bootstrapPeaks where sampleId='${sampleId}'`).catch((err) => {
+        console.error(err);
+        throw Error;
+    });
+    await (0, dbConnection_1.dbRun)(`delete from densityCrossValidation where sampleId='${sampleId}'`).catch((err) => {
+        console.error(err);
+        throw Error;
+    });
+    await (0, dbConnection_1.dbRun)(`delete from baseDensity where sampleId='${sampleId}'`).catch((err) => {
+        console.error(err);
+        throw Error;
+    });
+    await (0, dbConnection_1.dbRun)(`delete from densityCi where sampleId='${sampleId}'`).catch((err) => {
+        console.error(err);
+        throw Error;
+    });
+    await (0, dbConnection_1.dbRun)(`delete from peaksCertainty where sampleId='${sampleId}'`).catch((err) => {
         console.error(err);
         throw Error;
     });
