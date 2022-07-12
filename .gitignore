@@ -23,3 +23,8 @@ run.r
 # .Rproj.user
 # /R/BPC
 
+node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework
+product/mac/BADZUPA.app/Contents/Resources/app.asar
+product/mac/BADZUPA.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework
+.git/objects/01/a814f02f5c35daa53eacf0c74ace92454a3faf
+.git/objects/ce/750f295a595653b80a441a6fd1d8a63fcfa9df

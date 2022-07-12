@@ -25,7 +25,7 @@ const createWindow = () => {
     win.loadURL('file://' + __dirname + '/index.html');
     // win.loadFile('./index.html');
     // 開発者ツールを起動する
-    // win.webContents.openDevTools();
+    win.webContents.openDevTools();
 };
 // Electronの起動準備が終わったら、ウィンドウを作成する。
 electron_1.app.whenReady().then(createWindow);

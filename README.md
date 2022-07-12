@@ -1,5 +1,5 @@
 # installation
-BADZUPA depends on R, IsoplotR (https://github.com/pvermees/IsoplotR), and badzupaR (https://github.com/Tan-Furukawa/badzupaR)
+BADZUPA depends on badzupaR (https://github.com/Tan-Furukawa/badzupaR)
 
 1. install R from your OS (https://www.r-project.org/)
 

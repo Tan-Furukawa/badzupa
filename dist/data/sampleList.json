@@ -13,7 +13,26 @@
     {
       "sampleName": "OSM",
       "done": 0,
-      "sampleId": "pSEhWU-w8"
+      "sampleId": "pSEhWU-w8",
+      "estimationParam": {
+        "bootstrapSize": 400,
+        "usedAlgorithmList": [
+          {
+            "algorithm": "adeba",
+            "used": true
+          },
+          {
+            "algorithm": "botev",
+            "used": true
+          },
+          {
+            "algorithm": "sj",
+            "used": true
+          }
+        ],
+        "densityEstimationConfidentLevel": 90,
+        "crossValidationSize": 10
+      }
     }
   ]
 }
