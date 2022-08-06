@@ -61576,8 +61576,10 @@ const SampleListView = () => {
             alert('stop computation to continue');
         }
         else {
-            await (0, DataActions_1.deleteSampleStatusList)(sampleId, dispatch, sampleStatusList);
-            await (0, DataActions_1.deleteAgeDataFromDB)(sampleId, dispatch);
+            if (window.confirm('delete sample data?')) {
+                await (0, DataActions_1.deleteSampleStatusList)(sampleId, dispatch, sampleStatusList);
+                await (0, DataActions_1.deleteAgeDataFromDB)(sampleId, dispatch);
+            }
         }
     }, [sampleStatusList, nowComputation]);
     const onChangeCheckBox = (0, react_1.useCallback)((e) => {
@@ -61681,7 +61683,7 @@ const SampleListView = () => {
                         react_1.default.createElement(Th, null, "style"),
                         react_1.default.createElement(Th, null, "select"),
                         react_1.default.createElement(Th, null, "done"),
-                        react_1.default.createElement(Th, null, "reset"))),
+                        react_1.default.createElement(Th, null, "delete"))),
                 react_1.default.createElement("tbody", null, sampleStatusList.map(d => {
                     return (react_1.default.createElement("tr", { key: d.sampleId },
                         react_1.default.createElement("td", null, d.sampleName),

@@ -1,153 +1,9 @@
 {
   "sampleStatusList": [
     {
-      "sampleName": "fs",
-      "done": 0,
-      "sampleId": "ANzs7BNz8",
-      "estimationParam": {
-        "bootstrapSize": 400,
-        "usedAlgorithmList": [
-          {
-            "algorithm": "adeba",
-            "used": true
-          },
-          {
-            "algorithm": "botev",
-            "used": true
-          },
-          {
-            "algorithm": "sj",
-            "used": true
-          }
-        ],
-        "densityEstimationConfidentLevel": 90,
-        "crossValidationSize": 10
-      }
-    },
-    {
-      "sampleName": "f",
-      "done": 0,
-      "sampleId": "SHNdmTs5Z",
-      "estimationParam": {
-        "bootstrapSize": 400,
-        "usedAlgorithmList": [
-          {
-            "algorithm": "adeba",
-            "used": true
-          },
-          {
-            "algorithm": "botev",
-            "used": true
-          },
-          {
-            "algorithm": "sj",
-            "used": true
-          }
-        ],
-        "densityEstimationConfidentLevel": 90,
-        "crossValidationSize": 10
-      }
-    },
-    {
-      "sampleName": "ssss",
-      "done": 0,
-      "sampleId": "AGubZhMxV",
-      "estimationParam": {
-        "bootstrapSize": 400,
-        "usedAlgorithmList": [
-          {
-            "algorithm": "adeba",
-            "used": true
-          },
-          {
-            "algorithm": "botev",
-            "used": true
-          },
-          {
-            "algorithm": "sj",
-            "used": true
-          }
-        ],
-        "densityEstimationConfidentLevel": 90,
-        "crossValidationSize": 10
-      }
-    },
-    {
-      "sampleName": "tetori",
-      "done": 0,
-      "sampleId": "mdJYtL4YH",
-      "estimationParam": {
-        "bootstrapSize": 400,
-        "usedAlgorithmList": [
-          {
-            "algorithm": "adeba",
-            "used": true
-          },
-          {
-            "algorithm": "botev",
-            "used": true
-          },
-          {
-            "algorithm": "sj",
-            "used": true
-          }
-        ],
-        "densityEstimationConfidentLevel": 90,
-        "crossValidationSize": 10
-      }
-    },
-    {
-      "sampleName": "tetori",
-      "done": 0,
-      "sampleId": "5Uq6P9tSq",
-      "estimationParam": {
-        "bootstrapSize": 400,
-        "usedAlgorithmList": [
-          {
-            "algorithm": "adeba",
-            "used": true
-          },
-          {
-            "algorithm": "botev",
-            "used": true
-          },
-          {
-            "algorithm": "sj",
-            "used": true
-          }
-        ],
-        "densityEstimationConfidentLevel": 90,
-        "crossValidationSize": 10
-      }
-    },
-    {
       "sampleName": "World",
-      "done": 0,
-      "sampleId": "Oy7NvAvrr",
-      "estimationParam": {
-        "bootstrapSize": 400,
-        "usedAlgorithmList": [
-          {
-            "algorithm": "adeba",
-            "used": true
-          },
-          {
-            "algorithm": "botev",
-            "used": true
-          },
-          {
-            "algorithm": "sj",
-            "used": true
-          }
-        ],
-        "densityEstimationConfidentLevel": 90,
-        "crossValidationSize": 10
-      }
-    },
-    {
-      "sampleName": "Osayama",
       "done": 1,
-      "sampleId": "wxDlmZV7n",
+      "sampleId": "gfOWOu2W0",
       "estimationParam": {
         "bootstrapSize": 400,
         "usedAlgorithmList": [
@@ -171,50 +27,17 @@
     {
       "sampleName": "Franciscan",
       "done": 0,
-      "sampleId": "93s0wjFY3",
-      "estimationParam": {
-        "bootstrapSize": 400,
-        "usedAlgorithmList": [
-          {
-            "algorithm": "adeba",
-            "used": true
-          },
-          {
-            "algorithm": "botev",
-            "used": true
-          },
-          {
-            "algorithm": "sj",
-            "used": true
-          }
-        ],
-        "densityEstimationConfidentLevel": 90,
-        "crossValidationSize": 10
-      }
+      "sampleId": "_-owFqNA4"
     },
     {
       "sampleName": "Tetori",
-      "done": 1,
-      "sampleId": "ZIIN5mijR",
-      "estimationParam": {
-        "bootstrapSize": 400,
-        "usedAlgorithmList": [
-          {
-            "algorithm": "adeba",
-            "used": true
-          },
-          {
-            "algorithm": "botev",
-            "used": true
-          },
-          {
-            "algorithm": "sj",
-            "used": true
-          }
-        ],
-        "densityEstimationConfidentLevel": 90,
-        "crossValidationSize": 10
-      }
+      "done": 0,
+      "sampleId": "j6z0VE7Yp"
+    },
+    {
+      "sampleName": "Osayama",
+      "done": 0,
+      "sampleId": "cg8Bn0cC4"
     }
   ]
 }

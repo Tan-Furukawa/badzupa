@@ -150,8 +150,10 @@ const SampleListView: React.FC = () => {
       if (nowComputation) {
         alert('stop computation to continue');
       } else {
-        await deleteSampleStatusList(sampleId, dispatch, sampleStatusList);
-        await deleteAgeDataFromDB(sampleId, dispatch);
+        if (window.confirm('delete sample data?')) {
+          await deleteSampleStatusList(sampleId, dispatch, sampleStatusList);
+          await deleteAgeDataFromDB(sampleId, dispatch);
+        }
       }
     },
     [sampleStatusList, nowComputation],
@@ -284,7 +286,7 @@ const SampleListView: React.FC = () => {
               <Th>style</Th>
               <Th>select</Th>
               <Th>done</Th>
-              <Th>reset</Th>
+              <Th>delete</Th>
             </tr>
           </thead>
           <tbody>
