@@ -61571,9 +61571,7 @@ const SampleListView = () => {
     const { estimationParamInput, nowComputation } = (0, react_redux_2.useSelector)(a => a.user);
     const algorithmList = estimationParamInput.usedAlgorithmList;
     const checkedSampleStatus = sampleStatusList.filter(d => d.selected);
-    const onClickDeleteSampleButton = (0, react_1.useCallback)(
-    // TODO deleteすると空のグラフがくわわる
-    async (sampleId) => {
+    const onClickDeleteSampleButton = (0, react_1.useCallback)(async (sampleId) => {
         if (nowComputation) {
             alert('stop computation to continue');
         }
@@ -62078,6 +62076,7 @@ const dataReducer = (0, typescript_fsa_reducers_1.reducerWithInitialState)(initD
     };
 })
     .case(DataActions_1.ageDataListOperation.started, (state, payload) => {
+    console.log(state.sampleStatusList);
     return state;
 })
     .case(DataActions_1.ageDataListOperation.done, (state, payload) => {
@@ -62589,6 +62588,7 @@ function* doCreateTables() {
     const res = yield safe((0, effects_1.call)(window.densityEstimationR.createTables));
     if (!res.err) {
         // error
+        console.error(res.err);
     }
 }
 exports.doCreateTables = doCreateTables;
@@ -62598,6 +62598,7 @@ function* doSaveBaseDensity(sampleId) {
         const res = yield safe((0, effects_1.call)(window.densityEstimationR.saveBaseDensity, densityInfo.density, sampleId));
         if (!res.err) {
             // error
+            console.error(res.err);
         }
     }
 }
@@ -62606,6 +62607,7 @@ function* doDeleteBaseDensity(sampleId) {
     const res = yield safe((0, effects_1.call)(window.densityEstimationR.deleteBaseDensity, sampleId));
     if (!res.err) {
         // error
+        console.error(res.err);
     }
 }
 exports.doDeleteBaseDensity = doDeleteBaseDensity;
@@ -62639,6 +62641,7 @@ function* doSaveCrossValidationResult(sampleId) {
         const res = yield safe((0, effects_1.call)(window.densityEstimationR.saveCrossValidationResult, densityInfo.cvScores, sampleId));
         if (!res.err) {
             // error
+            console.error(res.err);
         }
     }
 }
@@ -62647,6 +62650,7 @@ function* doDeleteCrossValidationResult(sampleId) {
     const res = yield safe((0, effects_1.call)(window.densityEstimationR.deleteCrossValidationResult, sampleId));
     if (!res.err) {
         // error
+        console.error(res.err);
     }
 }
 exports.doDeleteCrossValidationResult = doDeleteCrossValidationResult;
@@ -62679,6 +62683,7 @@ function* doDeleteBootstrapPeaks(sampleId) {
     const res = yield safe((0, effects_1.call)(window.densityEstimationR.deleteBootstrapPeaks, sampleId));
     if (!res.err) {
         // error
+        console.error(res.err);
     }
 }
 exports.doDeleteBootstrapPeaks = doDeleteBootstrapPeaks;
@@ -62690,6 +62695,7 @@ function* doSaveBootstrapPeaks(sampleId) {
             if (!res.err) {
                 // console.error(res.err);
                 // error
+                console.error(res.err);
             }
         }
     }
@@ -62699,6 +62705,7 @@ function* doDeleteDensityCi(sampleId) {
     const res = yield safe((0, effects_1.call)(window.densityEstimationR.deleteDensityCi, sampleId));
     if (!res.err) {
         // error
+        console.error(res.err);
     }
 }
 exports.doDeleteDensityCi = doDeleteDensityCi;
@@ -62709,6 +62716,7 @@ function* doSaveDensityCi(sampleId) {
             const res = yield safe((0, effects_1.call)(window.densityEstimationR.saveDensityCi, densityInfo.bootstrapResult.ci, sampleId));
             if (!res.err) {
                 // error
+                console.error(res.err);
             }
         }
     }
@@ -62721,6 +62729,7 @@ function* doSavePeaksCertainty(sampleId) {
             const res = yield safe((0, effects_1.call)(window.densityEstimationR.savePeaksCertainty, densityInfo.bootstrapResult.peaksCertainty, sampleId));
             if (!res.err) {
                 // error
+                console.error(res.err);
             }
         }
     }
@@ -62730,6 +62739,7 @@ function* doDeletePeaksCertainty(sampleId) {
     const res = yield safe((0, effects_1.call)(window.densityEstimationR.deletePeaksCertainty, sampleId));
     if (!res.err) {
         // error
+        console.error(res.err);
     }
 }
 exports.doDeletePeaksCertainty = doDeletePeaksCertainty;
@@ -63067,43 +63077,56 @@ function* handleDensityEstimation() {
         const densityInfos = state.data.densityEstimationResult;
         for (let i = 0; i < densityInfos.length; i++) {
             yield (0, effects_1.put)((0, UserActions_1.registerNowComputation)(true));
+            state = yield (0, effects_1.select)();
             const densityInfo = densityInfos[i];
             const sampleId = densityInfo.sampleId;
+            const done = {
+                ...state.data.sampleStatusList.find(d => d.sampleId === sampleId),
+            }.done;
             yield (0, dbOperation_1.doCreateTables)();
             // for debug
             // yield deleteRelevantData(sampleId);
             const selectionCrossValidationRes = yield (0, dbOperation_1.doSelectCrossValidationResult)(sampleId);
-            console.log(`cross validation data:${selectionCrossValidationRes}`);
-            switch (selectionCrossValidationRes) {
-                case 'failed':
-                    yield (0, dbOperation_1.doDeleteCrossValidationResult)(sampleId);
-                    yield (0, densityEstimation_1.doCrossValidation)(sampleId);
-                    yield (0, dbOperation_1.doSaveCrossValidationResult)(sampleId);
-                case 'notExists':
-                    yield (0, densityEstimation_1.doCrossValidation)(sampleId);
-                    yield (0, dbOperation_1.doSaveCrossValidationResult)(sampleId);
+            if (!(done === 1)) {
+                // console.log(`cross validation data:${selectionCrossValidationRes}`);
+                // switch (selectionCrossValidationRes) {
+                //   case 'failed':
+                yield (0, dbOperation_1.doDeleteCrossValidationResult)(sampleId);
+                yield (0, densityEstimation_1.doCrossValidation)(sampleId);
+                yield (0, dbOperation_1.doSaveCrossValidationResult)(sampleId);
+                //   case 'notExists':
+                //     yield doCrossValidation(sampleId);
+                //     yield doSaveCrossValidationResult(sampleId);
+                // }
             }
             state = yield (0, effects_1.select)();
             if (!state.user.nowComputation)
-                continue;
+                break;
             const selectionDensityRes = yield (0, dbOperation_1.doSelectBaseDensity)(sampleId);
-            console.log(`base density data:${selectionDensityRes}`);
-            switch (selectionDensityRes) {
-                case 'failed':
-                    yield (0, dbOperation_1.doDeleteBaseDensity)(sampleId);
-                    yield (0, densityEstimation_1.doBaseDensityEstimation)(sampleId);
-                    yield (0, dbOperation_1.doSaveBaseDensity)(sampleId);
-                case 'notExists':
-                    yield (0, densityEstimation_1.doBaseDensityEstimation)(sampleId);
-                    yield (0, dbOperation_1.doSaveBaseDensity)(sampleId);
+            // console.log(`base density data:${selectionDensityRes}`);
+            // switch (selectionDensityRes) {
+            //   case 'failed':
+            if (!(done === 1)) {
+                yield (0, dbOperation_1.doDeleteBaseDensity)(sampleId);
+                yield (0, densityEstimation_1.doBaseDensityEstimation)(sampleId);
+                console.log('bbb');
+                yield (0, dbOperation_1.doSaveBaseDensity)(sampleId);
+                //   case 'notExists':
+                //     yield doBaseDensityEstimation(sampleId);
+                //     yield doSaveBaseDensity(sampleId);
+                // }
             }
+            console.log('aaaa');
             state = yield (0, effects_1.select)();
             if (!state.user.nowComputation)
-                continue;
+                break;
             const selectionBootstrapRes = yield (0, dbOperation_1.doSelectBootstrapResult)(sampleId);
-            console.log(`bootstrap data:${selectionBootstrapRes}`);
-            if (selectionBootstrapRes === 'failed' ||
-                selectionBootstrapRes === 'notExists') {
+            // console.log(`bootstrap data:${selectionBootstrapRes}`);
+            // if (
+            //   selectionBootstrapRes === 'failed' ||
+            //   selectionBootstrapRes === 'notExists'
+            // ) {
+            if (!(done === 1)) {
                 yield (0, dbOperation_1.doDeleteBootstrapPeaks)(sampleId);
                 yield (0, dbOperation_1.doDeleteDensityCi)(sampleId);
                 yield (0, dbOperation_1.doDeletePeaksCertainty)(sampleId);
@@ -63114,7 +63137,7 @@ function* handleDensityEstimation() {
             }
             state = yield (0, effects_1.select)();
             if (!state.user.nowComputation)
-                continue;
+                break;
             yield (0, effects_1.put)((0, DataActions_1.setComputationDoneAction)(sampleId));
             yield (0, effects_1.put)((0, DataActions_1.toggleSampleListDoneAction)(sampleId));
             window.core.toggleDoneSampleListFromJSON(sampleId);

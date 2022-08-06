@@ -146,7 +146,6 @@ const SampleListView: React.FC = () => {
   const checkedSampleStatus = sampleStatusList.filter(d => d.selected);
 
   const onClickDeleteSampleButton = useCallback(
-    // TODO deleteすると空のグラフがくわわる
     async (sampleId: string) => {
       if (nowComputation) {
         alert('stop computation to continue');

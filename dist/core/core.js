@@ -145,7 +145,7 @@ const saveSampleListToJSON = async (sampleStatus) => {
                 if (l.sampleId === sampleStatus.sampleId) {
                     return {
                         sampleName: sampleStatus.sampleName,
-                        done: 0,
+                        done: sampleStatus.done === 1 ? 1 : 0,
                         sampleId: l.sampleId,
                         estimationParam: l.estimationParam === undefined
                             ? sampleStatus.estimationParam

@@ -56,6 +56,12 @@ export interface IBootstrapResult {
   peaksCertainty: IPeaksCertainty[];
 }
 
+export interface IEachFinishStatus {
+  crossValidation: boolean;
+  baseDensityEstimation: boolean;
+  bootstrap: boolean;
+}
+
 // 未完の時はnul
 export interface IDensityEstimation {
   sampleId: string;

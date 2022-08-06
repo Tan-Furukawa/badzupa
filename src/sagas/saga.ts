@@ -50,61 +50,72 @@ function* handleDensityEstimation() {
     const action: { result: IAge[]; params: string } = yield take(
       'data-action/do-age-data-operation_DONE',
     );
-
     let state: IState = yield select();
     const densityInfos = state.data.densityEstimationResult;
 
     for (let i = 0; i < densityInfos.length; i++) {
       yield put(registerNowComputation(true));
+      state = yield select();
 
       const densityInfo = densityInfos[i];
       const sampleId = densityInfo.sampleId;
 
+      const done: 0 | 1 | undefined = {
+        ...state.data.sampleStatusList.find(d => d.sampleId === sampleId),
+      }.done;
       yield doCreateTables();
       // for debug
       // yield deleteRelevantData(sampleId);
       const selectionCrossValidationRes: IGetDbStatus =
         yield doSelectCrossValidationResult(sampleId);
-      console.log(`cross validation data:${selectionCrossValidationRes}`);
-      switch (selectionCrossValidationRes) {
-        case 'failed':
-          yield doDeleteCrossValidationResult(sampleId);
-          yield doCrossValidation(sampleId);
-          yield doSaveCrossValidationResult(sampleId);
-        case 'notExists':
-          yield doCrossValidation(sampleId);
-          yield doSaveCrossValidationResult(sampleId);
+      if (!(done === 1)) {
+        // console.log(`cross validation data:${selectionCrossValidationRes}`);
+        // switch (selectionCrossValidationRes) {
+        //   case 'failed':
+        yield doDeleteCrossValidationResult(sampleId);
+        yield doCrossValidation(sampleId);
+        yield doSaveCrossValidationResult(sampleId);
+        //   case 'notExists':
+        //     yield doCrossValidation(sampleId);
+        //     yield doSaveCrossValidationResult(sampleId);
+        // }
       }
 
       state = yield select();
-      if (!state.user.nowComputation) continue;
+      if (!state.user.nowComputation) break;
 
       const selectionDensityRes: IGetDbStatus = yield doSelectBaseDensity(
         sampleId,
       );
-      console.log(`base density data:${selectionDensityRes}`);
-      switch (selectionDensityRes) {
-        case 'failed':
-          yield doDeleteBaseDensity(sampleId);
-          yield doBaseDensityEstimation(sampleId);
-          yield doSaveBaseDensity(sampleId);
-        case 'notExists':
-          yield doBaseDensityEstimation(sampleId);
-          yield doSaveBaseDensity(sampleId);
+      // console.log(`base density data:${selectionDensityRes}`);
+      // switch (selectionDensityRes) {
+      //   case 'failed':
+      if (!(done === 1)) {
+        yield doDeleteBaseDensity(sampleId);
+        yield doBaseDensityEstimation(sampleId);
+        console.log('bbb');
+        yield doSaveBaseDensity(sampleId);
+        //   case 'notExists':
+        //     yield doBaseDensityEstimation(sampleId);
+        //     yield doSaveBaseDensity(sampleId);
+        // }
       }
 
+      console.log('aaaa');
+
       state = yield select();
-      if (!state.user.nowComputation) continue;
+      if (!state.user.nowComputation) break;
 
       const selectionBootstrapRes: IGetDbStatus = yield doSelectBootstrapResult(
         sampleId,
       );
-      console.log(`bootstrap data:${selectionBootstrapRes}`);
+      // console.log(`bootstrap data:${selectionBootstrapRes}`);
 
-      if (
-        selectionBootstrapRes === 'failed' ||
-        selectionBootstrapRes === 'notExists'
-      ) {
+      // if (
+      //   selectionBootstrapRes === 'failed' ||
+      //   selectionBootstrapRes === 'notExists'
+      // ) {
+      if (!(done === 1)) {
         yield doDeleteBootstrapPeaks(sampleId);
         yield doDeleteDensityCi(sampleId);
         yield doDeletePeaksCertainty(sampleId);
@@ -115,7 +126,7 @@ function* handleDensityEstimation() {
       }
 
       state = yield select();
-      if (!state.user.nowComputation) continue;
+      if (!state.user.nowComputation) break;
 
       yield put(setComputationDoneAction(sampleId));
       yield put(toggleSampleListDoneAction(sampleId));

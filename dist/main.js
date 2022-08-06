@@ -7,6 +7,7 @@ const electron_1 = require("electron");
 const path_1 = __importDefault(require("path"));
 // セキュアな Electron の構成
 // 参考: https://qiita.com/pochman/items/64b34e9827866664d436
+electron_1.app.disableHardwareAcceleration();
 const createWindow = () => {
     // レンダープロセスとなる、ウィンドウオブジェクトを作成する。
     const win = new electron_1.BrowserWindow({

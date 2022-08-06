@@ -250,7 +250,6 @@ const RegisterView: React.FC = () => {
     } else {
       dispatch(deleteFailedMessageAction('error-no-data'));
     }
-
     dispatch(deleteFailedMessageAction('error-data-size'));
 
     if (nError > 0) {

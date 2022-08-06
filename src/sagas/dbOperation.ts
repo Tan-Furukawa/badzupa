@@ -46,6 +46,7 @@ export function* doCreateTables() {
   );
   if (!res.err) {
     // error
+    console.error(res.err);
   }
 }
 
@@ -63,6 +64,7 @@ export function* doSaveBaseDensity(sampleId: string) {
     );
     if (!res.err) {
       // error
+      console.error(res.err);
     }
   }
 }
@@ -73,6 +75,7 @@ export function* doDeleteBaseDensity(sampleId: string) {
   );
   if (!res.err) {
     // error
+    console.error(res.err);
   }
 }
 
@@ -120,6 +123,7 @@ export function* doSaveCrossValidationResult(sampleId: string) {
     );
     if (!res.err) {
       // error
+      console.error(res.err);
     }
   }
 }
@@ -130,6 +134,7 @@ export function* doDeleteCrossValidationResult(sampleId: string) {
   );
   if (!res.err) {
     // error
+    console.error(res.err);
   }
 }
 
@@ -171,6 +176,7 @@ export function* doDeleteBootstrapPeaks(sampleId: string) {
   );
   if (!res.err) {
     // error
+    console.error(res.err);
   }
 }
 
@@ -190,6 +196,7 @@ export function* doSaveBootstrapPeaks(sampleId: string) {
       if (!res.err) {
         // console.error(res.err);
         // error
+        console.error(res.err);
       }
     }
   }
@@ -201,6 +208,7 @@ export function* doDeleteDensityCi(sampleId: string) {
   );
   if (!res.err) {
     // error
+    console.error(res.err);
   }
 }
 
@@ -219,6 +227,7 @@ export function* doSaveDensityCi(sampleId: string) {
       );
       if (!res.err) {
         // error
+        console.error(res.err);
       }
     }
   }
@@ -239,6 +248,7 @@ export function* doSavePeaksCertainty(sampleId: string) {
       );
       if (!res.err) {
         // error
+        console.error(res.err);
       }
     }
   }
@@ -250,6 +260,7 @@ export function* doDeletePeaksCertainty(sampleId: string) {
   );
   if (!res.err) {
     // error
+    console.error(res.err);
   }
 }
 

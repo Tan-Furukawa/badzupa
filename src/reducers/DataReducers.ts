@@ -94,6 +94,7 @@ const dataReducer = reducerWithInitialState<IData>(initData)
     };
   })
   .case(ageDataListOperation.started, (state, payload) => {
+    console.log(state.sampleStatusList);
     return state;
   })
   .case(ageDataListOperation.done, (state, payload) => {
