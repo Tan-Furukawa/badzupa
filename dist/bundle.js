@@ -61857,7 +61857,7 @@ exports.theme = {
     DENSITY_CURVE: '#44a9fb',
     DENSITY_AREA: '#ccc',
     CERTAIN_LEVEL0: '#12A785',
-    CERTAIN_LEVEL1: '#ffd700',
+    CERTAIN_LEVEL1: '#ffa450',
     CERTAIN_LEVEL2: '#f27538',
     CERTAIN_LEVEL3: '#FA016F',
     SECONDARY_1_2: '#52CAAF',

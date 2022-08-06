@@ -1,19 +1,9 @@
 {
   "sampleStatusList": [
     {
-      "sampleName": "WWZ",
-      "done": 0,
-      "sampleId": "GgVOUkze6"
-    },
-    {
-      "sampleName": "Tetori",
-      "done": 0,
-      "sampleId": "l-478IzIL"
-    },
-    {
-      "sampleName": "OSM",
-      "done": 0,
-      "sampleId": "pSEhWU-w8",
+      "sampleName": "World",
+      "done": 1,
+      "sampleId": "Oy7NvAvrr",
       "estimationParam": {
         "bootstrapSize": 400,
         "usedAlgorithmList": [
@@ -33,6 +23,21 @@
         "densityEstimationConfidentLevel": 90,
         "crossValidationSize": 10
       }
+    },
+    {
+      "sampleName": "Osayama",
+      "done": 0,
+      "sampleId": "wxDlmZV7n"
+    },
+    {
+      "sampleName": "Franciscan",
+      "done": 0,
+      "sampleId": "93s0wjFY3"
+    },
+    {
+      "sampleName": "Tetori",
+      "done": 0,
+      "sampleId": "ZIIN5mijR"
     }
   ]
 }
