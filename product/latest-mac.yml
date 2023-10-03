@@ -1,8 +1,8 @@
 version: 0.0.1
 files:
-  - url: BADZUPA-0.0.1.dmg
-    sha512: tTFRpd8+hvVoYiX8fac2VgJRhKBtIbAAUYfNI/0riQeUfSZ7f8uZ8FOh2+NrPpBYzbMs7h28Hgo9TIx8FOJX0w==
-    size: 140647202
-path: BADZUPA-0.0.1.dmg
-sha512: tTFRpd8+hvVoYiX8fac2VgJRhKBtIbAAUYfNI/0riQeUfSZ7f8uZ8FOh2+NrPpBYzbMs7h28Hgo9TIx8FOJX0w==
-releaseDate: '2023-10-03T06:02:00.221Z'
+  - url: XBADZUPA-0.0.1.dmg
+    sha512: G9vJ11RSO7h/wOjVGHLerZZla5K0rqj7VQoQIxqdKWNf+a+X/vrGta+s3KHXQze3LTva95DgiXwEHkYiX9PtSQ==
+    size: 140645017
+path: XBADZUPA-0.0.1.dmg
+sha512: G9vJ11RSO7h/wOjVGHLerZZla5K0rqj7VQoQIxqdKWNf+a+X/vrGta+s3KHXQze3LTva95DgiXwEHkYiX9PtSQ==
+releaseDate: '2023-10-03T07:04:40.234Z'

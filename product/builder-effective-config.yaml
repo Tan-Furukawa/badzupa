@@ -2,7 +2,7 @@ directories:
   output: ./product
   buildResources: build
 appId: com.electron.badzupa
-productName: BADZUPA
+productName: XBADZUPA
 files:
   - filter:
       - assets

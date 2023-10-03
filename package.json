@@ -17,7 +17,7 @@
   },
   "build": {
     "appId": "com.electron.badzupa",
-    "productName": "BADZUPA",
+    "productName": "XBADZUPA",
     "directories": {
       "output": "./product"
     },
