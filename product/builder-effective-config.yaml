@@ -2,7 +2,6 @@ directories:
   output: ./product
   buildResources: build
 appId: com.electron.badzupa
-afterSign: scripts/notarize.js
 productName: BADZUPA
 files:
   - filter:
@@ -20,10 +19,6 @@ asarUnpack:
 dmg:
   sign: false
 mac:
-  hardenedRuntime: true
-  gatekeeperAssess: false
-  entitlements: build/entitlements.mac.plist
-  entitlementsInherit: build/entitlements.mac.plist
   icon: icon/badzupa.png
   target:
     - dmg

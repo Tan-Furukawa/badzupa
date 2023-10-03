@@ -1,6 +1,6 @@
 {
   "name": "badzupa",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "./dist/main.js",
   "scripts": {
@@ -17,7 +17,6 @@
   },
   "build": {
     "appId": "com.electron.badzupa",
-    "afterSign": "scripts/notarize.js",
     "productName": "BADZUPA",
     "directories": {
       "output": "./product"
@@ -40,10 +39,6 @@
       "sign": false
     },
     "mac": {
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false,
-      "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist",
       "icon": "icon/badzupa.png",
       "target": [
         "dmg"

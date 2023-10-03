@@ -1,1 +1,1 @@
-{"method":"crossValidation", "index": 30 , "all": 30 }
+{"method":"crossValidation", "index": 20 , "all": 20 }

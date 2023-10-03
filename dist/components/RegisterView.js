@@ -117,7 +117,7 @@ const Grid = props => {
     }, []);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("p", null, loadingBy === 'csv' ? (react_1.default.createElement(FoundationStyles_1.ButtonFormat, { onClick: onClickUnsetButton }, "unset data")) : ('')),
-        react_1.default.createElement("p", null, isLargeData ? `Omit the 300th line and after.` : ``),
+        react_1.default.createElement("p", null, isLargeData ? `displaying lines 1 through 300` : ``),
         react_1.default.createElement("div", { style: { pointerEvents: isLargeData ? 'none' : 'unset' } },
             react_1.default.createElement(MyReactDataSheet, { data: !isLargeData ? grid : grid.filter((d, i) => i < maxLengthOfData), valueRenderer: valueRenderer, onContextMenu: (e, cell, i, j) => cell.readOnly ? e.preventDefault() : null, 
                 // parsePaste={onPasteData}
@@ -257,6 +257,9 @@ const RegisterView = () => {
                         react_1.default.createElement("li", null, " Row 1: Age "),
                         react_1.default.createElement("li", null, " Row 2: Measurement error (2sigma) "),
                         react_1.default.createElement("li", null, " Column name: Row 1:age; Row 2: 2sd"),
+                        react_1.default.createElement("li", null,
+                            ' ',
+                            "\u203B The calculation algorithm that considers the 2sd is not implemented in this version."),
                         react_1.default.createElement("br", null),
                         react_1.default.createElement(react_csv_reader_1.default, { onFileLoaded: onFileLoaded })))),
                 nowSelectDataLoadingMethod === 'dataGrid' && (react_1.default.createElement("div", { className: 'container' },

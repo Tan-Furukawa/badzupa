@@ -21,7 +21,7 @@ maxAge <- max(age) + (max(age) - min(age)) * 0.1
 algorithms <- list(
     default = function(x) density(x),
     sj = function(x) density(x, bw = "SJ", from = minAge, to = maxAge),
-    adeba = function(x) badzupaR::adeba_density(x, from = minAge, to = maxAge),
+    adeba = function(x) badzupaR::density.adeba(x, from = minAge, to = maxAge),
     botev = function(x) IsoplotR::kde(x, from = minAge, to = maxAge, plot=F)
 )
 

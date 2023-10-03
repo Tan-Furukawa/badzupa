@@ -19,7 +19,7 @@ maxAge <- max(age) + (max(age) - min(age)) * 0.1
 algorithms = list(
 # default = function(x) density(x),
     sj = function(x) density(x, bw = "SJ", from = minAge, to=maxAge),
-    adeba = function(x) badzupaR::adeba_density(x, from = minAge, to=maxAge),
+    adeba = function(x) badzupaR::density.adeba(x, from = minAge, to=maxAge),
     botev = function(x) IsoplotR::kde(x, from = minAge, to=maxAge, plot=F)
 )[algorithmList]
 
@@ -27,7 +27,7 @@ watherFn <- function(i, N) {
   write(paste('{"method":"crossValidation", "index":', i, ', "all":', N, '}'), file = paste(dir, "/crossValidation.txt", sep = ""));
 }
 
-cv <- badzupaR::Cv$new(algorithms, age, cvN, watcher = watherFn)
+cv <- badzupaR::Cv$new(algorithms, age, watcher = watherFn)
 res <- cv$exeCVinAllAlgorithm()
 # cat(toString(res), file = paste(dir, "/crossValidation.txt", sep = ""));
 

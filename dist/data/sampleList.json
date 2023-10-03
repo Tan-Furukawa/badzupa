@@ -1,6 +1,30 @@
 {
   "sampleStatusList": [
     {
+      "sampleName": "AAA",
+      "done": 0,
+      "sampleId": "bsmq3O8Nv",
+      "estimationParam": {
+        "bootstrapSize": 400,
+        "usedAlgorithmList": [
+          {
+            "algorithm": "adeba",
+            "used": true
+          },
+          {
+            "algorithm": "botev",
+            "used": true
+          },
+          {
+            "algorithm": "sj",
+            "used": false
+          }
+        ],
+        "densityEstimationConfidentLevel": 90,
+        "crossValidationSize": 10
+      }
+    },
+    {
       "sampleName": "World",
       "done": 1,
       "sampleId": "gfOWOu2W0",
@@ -26,18 +50,75 @@
     },
     {
       "sampleName": "Franciscan",
-      "done": 0,
-      "sampleId": "_-owFqNA4"
+      "done": 1,
+      "sampleId": "_-owFqNA4",
+      "estimationParam": {
+        "bootstrapSize": 400,
+        "usedAlgorithmList": [
+          {
+            "algorithm": "adeba",
+            "used": true
+          },
+          {
+            "algorithm": "botev",
+            "used": true
+          },
+          {
+            "algorithm": "sj",
+            "used": true
+          }
+        ],
+        "densityEstimationConfidentLevel": 90,
+        "crossValidationSize": 10
+      }
     },
     {
       "sampleName": "Tetori",
-      "done": 0,
-      "sampleId": "j6z0VE7Yp"
+      "done": 1,
+      "sampleId": "j6z0VE7Yp",
+      "estimationParam": {
+        "bootstrapSize": 400,
+        "usedAlgorithmList": [
+          {
+            "algorithm": "adeba",
+            "used": true
+          },
+          {
+            "algorithm": "botev",
+            "used": true
+          },
+          {
+            "algorithm": "sj",
+            "used": false
+          }
+        ],
+        "densityEstimationConfidentLevel": 90,
+        "crossValidationSize": 10
+      }
     },
     {
       "sampleName": "Osayama",
       "done": 0,
-      "sampleId": "cg8Bn0cC4"
+      "sampleId": "cg8Bn0cC4",
+      "estimationParam": {
+        "bootstrapSize": 400,
+        "usedAlgorithmList": [
+          {
+            "algorithm": "adeba",
+            "used": true
+          },
+          {
+            "algorithm": "botev",
+            "used": true
+          },
+          {
+            "algorithm": "sj",
+            "used": false
+          }
+        ],
+        "densityEstimationConfidentLevel": 90,
+        "crossValidationSize": 10
+      }
     }
   ]
 }

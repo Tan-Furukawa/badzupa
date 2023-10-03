@@ -10,7 +10,7 @@ module.exports = {
   cache: true,
   // development は、 source map file を作成、再ビルド時間の短縮などの設定となる
   // production は、コードの圧縮やモジュールの最適化が行われる設定となる
-  mode: 'development', // "production" | "development" | "none"
+  mode: 'production', // "production" | "development" | "none"
   // ソースマップのタイプ
   devtool: 'source-map',
   // 出力先設定 __dirname は node でのカレントディレクトリのパスが格納される変数

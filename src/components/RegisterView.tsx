@@ -149,7 +149,7 @@ const Grid: React.FC = props => {
           ''
         )}
       </p>
-      <p>{isLargeData ? `Omit the 300th line and after.` : ``}</p>
+      <p>{isLargeData ? `displaying lines 1 through 300` : ``}</p>
       <div style={{ pointerEvents: isLargeData ? 'none' : 'unset' }}>
         <MyReactDataSheet
           data={
@@ -370,6 +370,11 @@ const RegisterView: React.FC = () => {
                 <li> Row 1: Age </li>
                 <li> Row 2: Measurement error (2sigma) </li>
                 <li> Column name: Row 1:age; Row 2: 2sd</li>
+                <li>
+                  {' '}
+                  ※ The calculation algorithm that considers the 2sd is not
+                  implemented in this version.
+                </li>
                 <br />
                 <CSVReader onFileLoaded={onFileLoaded} />
               </div>

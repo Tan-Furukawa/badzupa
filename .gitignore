@@ -2,6 +2,7 @@
 node_modules
 !node_modules/r-script
 .vscode
+product
 product/mac
 product/.icon-icns
 /cpp/lib/Eigen/*

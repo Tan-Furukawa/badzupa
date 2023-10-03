@@ -58,7 +58,7 @@ export const initUser: IUser = {
     usedAlgorithmList: [
       { algorithm: 'adeba', used: true },
       { algorithm: 'botev', used: true },
-      { algorithm: 'sj', used: true },
+      { algorithm: 'sj', used: false },
     ],
     densityEstimationConfidentLevel: 90,
     crossValidationSize: 10,
