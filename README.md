@@ -10,7 +10,7 @@ X-BADZUPA is a GUI that wraps around badzupaR(https://github.com/Tan-Furukawa/ba
     install.packages('remotes')
     remotes::install_github('Tan-Furukawa/badzupaR')
     ```
-1. install X-BADZUPA from release tab in this page
+1. install X-BADZUPA from release tab in this page (https://github.com/Tan-Furukawa/badzupa/releases/tag/X-BADZUPA)
 
 <!-- [on click download BADZUPA](./product/BADZUPA-0.0.0.dmg) -->
 
@@ -29,7 +29,7 @@ X-BADZUPA is a GUI that wraps around badzupaR(https://github.com/Tan-Furukawa/ba
     remotes::install_github('Tan-Furukawa/badzupaR')
     ```
 
-1. install X-BADZUPA from release tab in this page
+1. install X-BADZUPA from release tab in this page (https://github.com/Tan-Furukawa/badzupa/releases/tag/X-BADZUPA)
 <!-- [on click download BADZUPA](./product/BADZUPA-0.0.0.dmg) -->
 
 # License
