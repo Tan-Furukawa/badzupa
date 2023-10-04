@@ -4,7 +4,7 @@
 
 ## installation
 
-X-BADZUPA is a GUI that wraps around badzupaR (https://github.com/Tan-Furukawa/badzupaR). To ensure X-BADZUPA functions correctly, you need to have the badzupaR library installed in your R environment.
+X-BADZUPA is a GUI that wraps badzupaR (https://github.com/Tan-Furukawa/badzupaR). To ensure X-BADZUPA functions correctly, you need to have the badzupaR library installed in your R environment.
 
 ### Mac OS
 
@@ -15,7 +15,7 @@ X-BADZUPA is a GUI that wraps around badzupaR (https://github.com/Tan-Furukawa/b
     install.packages('remotes')
     remotes::install_github('Tan-Furukawa/badzupaR')
     ```
-1. install X-BADZUPA from release tab in this page (https://github.com/Tan-Furukawa/badzupa/releases/tag/X-BADZUPA)
+1. install X-BADZUPA from release tab in this page (https://github.com/Tan-Furukawa/badzupa/releases/tag/X-BADZUPA-v0.0.1.1-beta)
 
 <!-- [on click download BADZUPA](./product/BADZUPA-0.0.0.dmg) -->
 
@@ -34,7 +34,7 @@ X-BADZUPA is a GUI that wraps around badzupaR (https://github.com/Tan-Furukawa/b
     remotes::install_github('Tan-Furukawa/badzupaR')
     ```
 
-1. install X-BADZUPA from release tab in this page (https://github.com/Tan-Furukawa/badzupa/releases/tag/X-BADZUPA)
+1. install X-BADZUPA from release tab in this page (https://github.com/Tan-Furukawa/badzupa/releases/tag/X-BADZUPA-v0.0.1.1-beta)
 <!-- [on click download BADZUPA](./product/BADZUPA-0.0.0.dmg) -->
 
 # License
