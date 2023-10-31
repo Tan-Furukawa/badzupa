@@ -1,6 +1,6 @@
 # X-BADZUPA
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8401687.svg)](https://doi.org/10.5281/zenodo.8401687)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10036907.svg)](https://doi.org/10.5281/zenodo.10036907)
 
 ## installation
 
